@@ -1,0 +1,37 @@
+Utilización del framework Material-UI for React
+
+instalación 
+  npm install @material-ui/core
+
+instalación de la fuente global
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
+instalación de los iconos 
+  npm install @material-ui/icons
+
+Creación de un tema global
+  import { ThemeProvider } from '@material-ui/core/styles';
+
+  function App() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Component>
+      </ThemeProvider>
+    );
+  }
+
+  y creamos un archivo themeConfig.js
+  import { createMuiTheme } from '@material-ui/core/styles';
+  import purple from '@material-ui/core/colors/purple';
+  import green from '@material-ui/core/colors/green';
+
+  const theme = createMuiTheme({
+  palette: {
+      primary: {
+        main: purple[500],
+      },
+      secondary: {
+        main: green[500],
+      },
+    },
+  });

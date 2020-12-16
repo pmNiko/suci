@@ -1,8 +1,18 @@
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./styles/themeConfig";
+import Button from "@material-ui/core/Button";
+
 function App() {
   return (
-    <>
-      <h1>SUCI</h1>
-    </>
+    <ThemeProvider theme={theme}>
+      <h1 variant="primary">SUCI</h1>
+      <Button variant="text" color="primary">
+        Accion primaria
+      </Button>
+      <Button variant="text" color="secondary">
+        Accion secundaria
+      </Button>
+    </ThemeProvider>
   );
 }
 

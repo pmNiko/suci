@@ -1,17 +1,15 @@
-import { ThemeProvider } from "@material-ui/core/styles";
-import { theme } from "./styles/themeConfig";
-import Button from "@material-ui/core/Button";
+import { ThemeProvider } from "@material-ui/core/styles"
+import { theme } from "./styles/themeConfig"
+import Button from "@material-ui/core/Button"
+import {Navbar} from "./components/layout/navbar"
+import KitchenPage from "./components/pages/kitchen"
+import ComandaCard from "./components/layout/comandaCard"
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <h1 variant="primary">SUCI</h1>
-      <Button variant="text" color="primary">
-        Accion primaria
-      </Button>
-      <Button variant="text" color="secondary">
-        Accion secundaria
-      </Button>
+      <Navbar/>
+      <ComandaCard/>
     </ThemeProvider>
   );
 }

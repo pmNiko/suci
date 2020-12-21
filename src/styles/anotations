@@ -13,6 +13,7 @@ Creación de un tema global
   import { ThemeProvider } from '@material-ui/core/styles';
 
   function App() {
+   
     return (
       <ThemeProvider theme={theme}>
         <Component>

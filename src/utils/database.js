@@ -1,4 +1,5 @@
-const items = [
+// Items de Menu
+export const items = [
   // items categoria rapidas
   {
     id: 1,
@@ -209,5 +210,3 @@ const items = [
     category: "Bebibles",
   },
 ];
-
-export default items;

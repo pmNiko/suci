@@ -2,14 +2,13 @@ import { ThemeProvider } from "@material-ui/core/styles"
 import { theme } from "./styles/themeConfig"
 import Button from "@material-ui/core/Button"
 import {Navbar} from "./components/layout/navbar"
-import KitchenPage from "./components/pages/kitchen"
-import ComandaCard from "./components/layout/comandaCard"
+import KitchenModule from "./components/pages/kitchen"
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Navbar/>
-      <ComandaCard/>
+     <KitchenModule/>
     </ThemeProvider>
   );
 }

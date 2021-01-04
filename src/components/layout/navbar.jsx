@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar'
 import Logo from './../../images/suci_logo.png'
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

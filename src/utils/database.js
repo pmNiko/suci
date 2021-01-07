@@ -1,5 +1,6 @@
 // Items de Menu
 export const items = [
+
   // items categoria rapidas
   {
     id: 1,
@@ -38,42 +39,44 @@ export const items = [
     category: "Rapidas",
   },
 
-  // items categorias platos fuertes
+  // items categorias platos
   {
     id: 7,
     name: "Ciervo a la cazadora",
     price: 560.45,
-    category: "Platos fuertes",
+    category: "Platos",
+
   },
   {
     id: 8,
     name: "Trucha al limon",
     price: 780.45,
-    category: "Platos fuertes",
+    category: "Platos",
+
   },
   {
     id: 9,
     name: "Ñoquis a la boloñeza",
     price: 460.9,
-    category: "Platos fuertes",
+    category: "Platos",
   },
   {
     id: 10,
     name: "Ñoquis a la crema",
     price: 780.3,
-    category: "Platos fuertes",
+    category: "Platos",
   },
   {
     id: 11,
     name: "Ravioles de verdura con filleto",
     price: 800.3,
-    category: "Platos fuertes",
+    category: "Platos",
   },
   {
     id: 12,
     name: "Ravioles de verdura con crema",
     price: 800.3,
-    category: "Platos fuertes",
+    category: "Platos",
   },
 
   // Items categoria ensaladas

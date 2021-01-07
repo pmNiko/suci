@@ -4,13 +4,14 @@ import ComandaCard from "./components/layout/comandaCard";
 import Menu from "./components/layout/mozo/Menu";
 import Till from "./components/layout/Till";
 import { Navbar } from "./components/layout/navbar";
+import KitchenModule from "./components/pages/kitchen";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
       {/* <ComandaCard/> */}
-      <Menu />
+      {/*<Menu />*/}
       {/* <Till /> */}
       <KitchenModule />
     </ThemeProvider>

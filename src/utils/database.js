@@ -1,5 +1,6 @@
 // Items de Menu
-const items = [
+export const items = [
+
   // items categoria rapidas
   {
     id: 1,
@@ -44,12 +45,14 @@ const items = [
     name: "Ciervo a la cazadora",
     price: 560.45,
     category: "Platos",
+
   },
   {
     id: 8,
     name: "Trucha al limon",
     price: 780.45,
     category: "Platos",
+
   },
   {
     id: 9,
@@ -210,5 +213,3 @@ const items = [
     category: "Bebibles",
   },
 ];
-
-export default items;

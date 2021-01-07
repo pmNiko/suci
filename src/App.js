@@ -1,10 +1,9 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./styles/themeConfig";
-import Button from "@material-ui/core/Button";
-import { Navbar } from "./components/layout/navbar";
-import KitchenPage from "./components/pages/kitchen";
 import ComandaCard from "./components/layout/comandaCard";
 import Menu from "./components/layout/mozo/Menu";
+import Till from "./components/layout/Till";
+import { Navbar } from "./components/layout/navbar";
 
 function App() {
   return (
@@ -12,6 +11,8 @@ function App() {
       <Navbar />
       {/* <ComandaCard/> */}
       <Menu />
+      {/* <Till /> */}
+      <KitchenModule />
     </ThemeProvider>
   );
 }

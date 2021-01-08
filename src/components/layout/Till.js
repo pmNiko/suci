@@ -50,7 +50,7 @@ const Till = () => {
   }
   let totalPrice = 0;
   purchasedItems.map((item) => {
-    totalPrice = totalPrice + item.price;
+    totalPrice = parseFloat(totalPrice) + parseFloat(item.price);
   });
 
   return (

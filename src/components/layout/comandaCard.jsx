@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import ContentCard from './contentCard'
 
 const useStyles = makeStyles((theme) =>({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) =>({
     justifyContent: 'center',
   },
   paper: {
+    width: 400,
     backgroundColor: theme.palette.background.paper,
     borderRadius: 15.0,
     outline: 'none',
@@ -104,8 +106,7 @@ export default function ComandaCard() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+       <ContentCard/>
           </div>
         </Fade>
       </Modal>

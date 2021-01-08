@@ -213,3 +213,16 @@ export const items = [
     category: "Bebibles",
   },
 ];
+
+// contenido de comanda
+
+export const platosComanda = [
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+  { nombre: "Comida Prueba" },
+];

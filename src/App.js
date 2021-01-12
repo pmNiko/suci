@@ -2,6 +2,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./styles/themeConfig";
 import { Navbar } from "./components/layout/navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 // lazy es una función y Suspense es un componente
 import React, { lazy, Suspense } from "react";
@@ -28,7 +30,9 @@ function App() {
             renderear los componentes y la variante exact matchea la ruta exacta*/}
             <Route path="/" exact component={Menu} />
             <Route path="/menu" exact component={Menu} />
-            <Route path="/kitchen" exact component={Kitchen} />
+            <Provider store={store}>
+              <Route path="/kitchen" exact component={Kitchen} />
+            </Provider>
             <Route path="/till" exact component={Till} />
           </Switch>
         </Suspense>

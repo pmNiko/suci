@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Typography, Checkbox, Box, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {platosComanda} from './../../src/utils/database'
+import { platosComanda } from "../../utils/database";
 
 export const ContentCard = () => {
   const [checked, setChecked] = React.useState(false);
@@ -16,20 +16,17 @@ export const ContentCard = () => {
           <Grid item>
             <Grid
               container
+              key={index}
               direction="row"
-              alignItems="center"
               justify="space-between"
+              alignItems="center"
             >
-              <Grid item>
-                <Typography>{nombre}</Typography>
-              </Grid>
-              <Grid item>
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  color="primary"
-                />
-              </Grid>
+              <Typography>{nombre}</Typography>
+              <Checkbox
+                checked={index.checked}
+                onChange={handleChange}
+                color="primary"
+              />
             </Grid>
           </Grid>
         ))}

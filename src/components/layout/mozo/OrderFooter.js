@@ -12,12 +12,8 @@ const MenuFooter = () => {
 	const classes = useStyles()
 	return (
 		<Breadcrumbs className={classes.fontSize}>
-			<Link>Rapidas</Link>
-			<Link>Platos</Link>
-			<Link>Ensaladas</Link>
-			<Link>Postres</Link>
-			<Link>Refrescos</Link>
-			<Link>Bebibles</Link>
+			<Link>Enviar a cocina</Link>
+			<Link>Cerrar cuenta</Link>
 		</Breadcrumbs>
 	)
 }

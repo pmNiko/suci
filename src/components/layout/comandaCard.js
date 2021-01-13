@@ -1,25 +1,29 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import ContentCard from './contentCard'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import Container from "@material-ui/core/Container";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import ContentCard from "./contentCard";
+import { listaComanda } from "../../utils/database";
+import { connect } from "react-redux";
+import { modifyOrder } from "../../redux/actions/orderAction";
 
-const useStyles = makeStyles((theme) =>({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 275,
     margin: 10,
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -28,21 +32,30 @@ const useStyles = makeStyles((theme) =>({
     marginBottom: 12,
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     width: 400,
     backgroundColor: theme.palette.background.paper,
     borderRadius: 15.0,
-    outline: 'none',
+    outline: "none",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  rowContainer: {
+    direction: "row",
+    alignItems: "center",
+    justify: "space-between",
+  },
+  semaforo: {
+    fontSize: 12,
+    color: "red",
+  },
 }));
 
-export default function ComandaCard() {
+const ComandaCard = ({ orders, modify }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [open, setOpen] = React.useState(false);
@@ -55,44 +68,48 @@ export default function ComandaCard() {
     setOpen(false);
   };
 
-  
-
-  function showContent (){};
-
-  const listaComanda= [
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:1},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:2},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:3},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:4},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:5},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:6},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:7},
-    {fecha:'12/05/2020', numeroComanda:2, mesa:10,id:8},
-];
+  function showContent() {}
 
   return (
     <Grid container justify="center">
- {/* //   {listaComanda.map(comandaCard)} */}
- {listaComanda.map(({fecha, mesa, id, numeroComanda}, index) => ( 
- <Grid Item key={index}>
-      <Card className={classes.root} onClick={handleOpen}>
-        <CardContent>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Fecha : {fecha}
-          </Typography>
-          <Typography variant="h5" component="h2">
-            N° Comanda: {numeroComanda}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            N° Mesa: {mesa}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={handleOpen}>Ver</Button>
-        </CardActions>
-      </Card>
-      </Grid>))}
-    <Modal
+      {/* //   {listaComanda.map(comandaCard)} */}
+      {orders.map(({ fecha, mesa, id, numero, pendiente }, index) => (
+        <Grid item key={index}>
+          <Card className={classes.root} onClick={handleOpen}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              >
+                Fecha : {fecha}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                N° Comanda: {numero}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                N° Mesa: {mesa}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Grid container className={classes.rowContainer}>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    modify(id);
+                  }}
+                >
+                  Ver
+                </Button>
+                <Typography className={classes.semaforo}>
+                  Pendiente: {pendiente.toString()}
+                </Typography>
+              </Grid>
+            </CardActions>
+          </Card>
+        </Grid>
+      ))}
+      <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -106,10 +123,25 @@ export default function ComandaCard() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-       <ContentCard/>
+            <ContentCard />
           </div>
         </Fade>
       </Modal>
-            </Grid>
+    </Grid>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    orders: state.order.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // modify recibe el payload
+    modify: (payload) => dispatch(modifyOrder(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComandaCard);

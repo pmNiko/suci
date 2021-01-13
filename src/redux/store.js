@@ -1,6 +1,7 @@
 import { createStore } from "redux";
-import palabra from './reducers/postReducer';
+/*  lo nombro rootReducers al combineReducers
+    que exporto desde reducers/index.js */
+import rootReducers from "./reducers";
 
-
-const store = createStore(palabra);
+const store = createStore(rootReducers);
 export default store;

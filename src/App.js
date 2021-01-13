@@ -28,12 +28,13 @@ function App() {
           <Switch>
             {/* Route se encarga de sentenciar las rutas con las cuales
             renderear los componentes y la variante exact matchea la ruta exacta*/}
-            <Route path="/" exact component={Menu} />
-            <Route path="/menu" exact component={Menu} />
+
             <Provider store={store}>
+              <Route path="/" exact component={Menu} />
+              <Route path="/menu" exact component={Menu} />
+              <Route path="/till" exact component={Till} />
               <Route path="/kitchen" exact component={Kitchen} />
             </Provider>
-            <Route path="/till" exact component={Till} />
           </Switch>
         </Suspense>
       </Router>

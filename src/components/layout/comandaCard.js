@@ -11,6 +11,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ContentCard from "./contentCard";
+import { listaComanda } from "../../utils/database";
+import { connect } from "react-redux";
+import { modifyOrder } from "../../redux/actions/orderAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComandaCard() {
+const ComandaCard = ({ orders, modify }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [open, setOpen] = React.useState(false);
@@ -67,22 +70,11 @@ export default function ComandaCard() {
 
   function showContent() {}
 
-  const listaComanda = [
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 1 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 2 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 3 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 4 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 5 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 6 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 7 },
-    { fecha: "12/05/2020", numeroComanda: 2, mesa: 10, id: 8 },
-  ];
-
   return (
     <Grid container justify="center">
       {/* //   {listaComanda.map(comandaCard)} */}
-      {listaComanda.map(({ fecha, mesa, id, numeroComanda }, index) => (
-        <Grid Item key={index}>
+      {orders.map(({ fecha, mesa, id, numero, pendiente }, index) => (
+        <Grid item key={index}>
           <Card className={classes.root} onClick={handleOpen}>
             <CardContent>
               <Typography
@@ -93,7 +85,7 @@ export default function ComandaCard() {
                 Fecha : {fecha}
               </Typography>
               <Typography variant="h5" component="h2">
-                N° Comanda: {numeroComanda}
+                N° Comanda: {numero}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
                 N° Mesa: {mesa}
@@ -101,10 +93,17 @@ export default function ComandaCard() {
             </CardContent>
             <CardActions>
               <Grid container className={classes.rowContainer}>
-                <Button size="small" onClick={handleOpen}>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    modify(id);
+                  }}
+                >
                   Ver
                 </Button>
-                <Typography className={classes.semaforo}>Pendiente</Typography>
+                <Typography className={classes.semaforo}>
+                  Pendiente: {pendiente.toString()}
+                </Typography>
               </Grid>
             </CardActions>
           </Card>
@@ -130,4 +129,19 @@ export default function ComandaCard() {
       </Modal>
     </Grid>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    orders: state.order.orders,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // modify recibe el payload
+    modify: (payload) => dispatch(modifyOrder(payload)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComandaCard);

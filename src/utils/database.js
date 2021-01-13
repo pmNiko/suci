@@ -1,6 +1,5 @@
 // Items de Menu
 export const items = [
-
   // items categoria rapidas
   {
     id: 1,
@@ -45,14 +44,12 @@ export const items = [
     name: "Ciervo a la cazadora",
     price: 560.45,
     category: "Platos",
-
   },
   {
     id: 8,
     name: "Trucha al limon",
     price: 780.45,
     category: "Platos",
-
   },
   {
     id: 9,
@@ -225,4 +222,31 @@ export const platosComanda = [
   { nombre: "Comida Prueba" },
   { nombre: "Comida Prueba" },
   { nombre: "Comida Prueba" },
+];
+
+export const orders = [
+  {
+    id: 1,
+    fecha: "12/05/2020",
+    numero: 2,
+    mesa: 10,
+    platos: [
+      { nombre: "Comida Prueba 1", precio: 250.5, despachado: false },
+      { nombre: "Comida Prueba 2", precio: 260.5, despachado: false },
+      { nombre: "Comida Prueba 3", precio: 270.5, despachado: false },
+    ],
+    pendiente: true,
+  },
+  {
+    id: 2,
+    fecha: "12/05/2020",
+    numero: 3,
+    mesa: 11,
+    platos: [
+      { nombre: "Comida Prueba 1", precio: 250.5, despachado: false },
+      { nombre: "Comida Prueba 2", precio: 260.5, despachado: false },
+      { nombre: "Comida Prueba 3", precio: 270.5, despachado: false },
+    ],
+    pendiente: true,
+  },
 ];

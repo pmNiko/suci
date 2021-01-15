@@ -1,7 +1,6 @@
 import React from "react"
 import { Grid, Typography, Box } from "@material-ui/core/"
 import Button from "@material-ui/core/Button"
-
 import { items } from "../../../utils/database"
 import { connect } from "react-redux"
 import { addItem } from "../../../redux/actions/comandaAction"

@@ -49,9 +49,10 @@ const Till = () => {
     purchasedItems.push(items[Math.floor(Math.random() * items.length)]);
   }
   let totalPrice = 0;
-  purchasedItems.map((item) => {
-    totalPrice = parseFloat(totalPrice) + parseFloat(item.price);
-  });
+
+  totalPrice = purchasedItems.reduce((i, item) => {
+    return i + item.price;
+  }, 0);
 
   return (
     <>

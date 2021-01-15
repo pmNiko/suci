@@ -1,35 +1,47 @@
-import React from "react"
-import { Grid, Box } from "@material-ui/core/"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableRow from "@material-ui/core/TableRow"
-import { items } from "../../../utils/database"
+import React from "react";
+import { Grid, Typography, Box } from "@material-ui/core/";
+import Button from "@material-ui/core/Button";
 
-const MenuItems = () => {
-	const rapidas = items.filter((item) => item.category === "Rapidas")
+import { items } from "../../../utils/database";
+import { connect } from "react-redux";
+import { addItem } from "../../../redux/actions/comandaAction";
 
-	return (
-		<Grid item md={12}>
-			<TableContainer>
-				<Table aria-label="simple table">
-					<TableBody>
-						{rapidas.map((item) => (
-							<TableRow key={`${item.id}+${item.name}`}>
-								<TableCell component="th" scope="row">
-									{item.name}
-								</TableCell>
-								<TableCell component="th" scope="row">
-									{item.cant}
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
-		</Grid>
-	)
-}
+const MenuItems = ({ add }) => {
+  const rapidas = items.filter((item) => item.category === "Rapidas");
+  const nC = 3;
+  return (
+    <Grid item md={12}>
+      {rapidas.map((item) => (
+        <Box m={3}>
+          <Grid
+            container
+            key={item.id}
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Typography>{item.name}</Typography>
+            <Typography>{item.count}</Typography>
+            <Button
+              variant="text"
+              color="primary"
+              onClick={() => {
+                add({ ...item, nC });
+              }}
+            >
+              Agregar
+            </Button>
+          </Grid>
+        </Box>
+      ))}
+    </Grid>
+  );
+};
 
-export default MenuItems
+const mapDispatchToProps = (dispatch) => {
+  return {
+    add: (item) => dispatch(addItem(item)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(MenuItems);

@@ -133,7 +133,7 @@ const ComandaCard = ({ orders, modify }) => {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.order.orders,
+    orders: state.orders,
   };
 };
 

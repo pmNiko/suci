@@ -5,7 +5,6 @@ import { MODIFY_ORDER, ADD_ITEM } from "../actions/orderAction";
 const initialState = { orders };
 
 export function order(state = initialState, action) {
-  console.log(state.orders[2]);
   switch (action.type) {
     case MODIFY_ORDER:
       return {

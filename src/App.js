@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./styles/themeConfig";
-import { Navbar } from "./components/layout/navbar";
+import { Navbar } from "./components/common/navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -13,7 +13,7 @@ import React, { lazy, Suspense } from "react";
     el componente y Suspense lo inyecta al DOM */
 const Menu = lazy(() => import("./components/layout/mozo/IndexMozo"));
 const Kitchen = lazy(() => import("./components/pages/kitchen"));
-const Till = lazy(() => import("./components/layout/Till"));
+const Till = lazy(() => import("./components/layout/till/Till"));
 
 function App() {
   return (

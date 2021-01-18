@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import OrderFooter from "./OrderFooter";
 import { comanda } from "../../../utils/database";
 import { connect } from "react-redux";
-import { addItem } from "../../../redux/actions/comandaAction";
+import { addItem } from "../../../redux/actions/orderAction";
 
 //----- Componente de Menu de Items ---- //
 

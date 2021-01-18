@@ -17,7 +17,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Typography from "@material-ui/core/Typography";
 
-import { items } from "../../utils/database";
+import { items } from "../../../utils/database";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {

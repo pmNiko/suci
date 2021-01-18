@@ -11,9 +11,9 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ContentCard from "./contentCard";
-import { listaComanda } from "../../utils/database";
+import { listaComanda } from "../../../utils/database";
 import { connect } from "react-redux";
-import { modifyOrder } from "../../redux/actions/orderAction";
+import { modifyOrder } from "../../../redux/actions/orderAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {

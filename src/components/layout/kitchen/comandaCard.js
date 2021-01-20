@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import Container from "@material-ui/core/Container";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
@@ -11,7 +10,6 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ContentCard from "./contentCard";
-import { listaComanda } from "../../../utils/database";
 import { connect } from "react-redux";
 import { modifyOrder } from "../../../redux/actions/orderAction";
 
@@ -67,8 +65,6 @@ const ComandaCard = ({ orders, modify }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  function showContent() {}
 
   return (
     <Grid container justify="center">

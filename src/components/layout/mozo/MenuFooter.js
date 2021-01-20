@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { Typography, Breadcrumbs, Link } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
@@ -9,7 +9,6 @@ import LocalDiningSharpIcon from "@material-ui/icons/LocalDiningSharp";
 import MoodIcon from "@material-ui/icons/Mood";
 import LocalDrinkIcon from "@material-ui/icons/LocalDrink";
 import FreeBreakfastIcon from "@material-ui/icons/FreeBreakfast";
-import { Filter } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
@@ -17,25 +16,18 @@ const useStyles = makeStyles({
   },
 });
 
-// const useStyles = makeStyles({
-//   fontSize: {
-//     fontSize: "13px",
-//   },
-// });
-
-const MenuFooter = () => {
+// El componente recibe el setter y guetter de filtro
+const MenuFooter = ({ setCategory, category }) => {
   const classes = useStyles();
-  const [value, setValue] = useState("Rapidas");
 
-  const filter = (event, newValue) => {
-    console.log(newValue);
-    setValue(newValue);
+  const filterDish = (event, newValue) => {
+    setCategory(newValue);
   };
 
   return (
     <BottomNavigation
-      value={value}
-      onChange={filter}
+      value={category}
+      onChange={filterDish}
       showLabels
       className={classes.root}
     >
@@ -60,8 +52,8 @@ const MenuFooter = () => {
         icon={<LocalDrinkIcon />}
       />
       <BottomNavigationAction
-        label="Bebibles"
-        value="Bebibles"
+        label="Cafeteria"
+        value="Cafeteria"
         icon={<FreeBreakfastIcon />}
       />
       <BottomNavigationAction
@@ -70,15 +62,22 @@ const MenuFooter = () => {
         icon={<MoodIcon />}
       />
     </BottomNavigation>
-    // <Breadcrumbs className={classes.fontSize}>
-    // 	<Link>Rapidas</Link>
-    // 	<Link>Platos</Link>
-    // 	<Link>Ensaladas</Link>
-    // 	<Link>Postres</Link>
-    // 	<Link>Refrescos</Link>
-    // 	<Link>Bebibles</Link>
-    // </Breadcrumbs>
   );
 };
 
 export default MenuFooter;
+
+// const useStyles = makeStyles({
+//   fontSize: {
+//     fontSize: "13px",
+//   },
+// });
+
+// <Breadcrumbs className={classes.fontSize}>
+// 	<Link>Rapidas</Link>
+// 	<Link>Platos</Link>
+// 	<Link>Ensaladas</Link>
+// 	<Link>Postres</Link>
+// 	<Link>Refrescos</Link>
+// 	<Link>Bebibles</Link>
+// </Breadcrumbs>

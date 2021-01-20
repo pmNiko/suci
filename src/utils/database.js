@@ -1,6 +1,5 @@
 // Items de Menu
 export const items = [
-
   // items categoria rapidas
   {
     id: 1,
@@ -45,14 +44,12 @@ export const items = [
     name: "Ciervo a la cazadora",
     price: 560.45,
     category: "Platos",
-
   },
   {
     id: 8,
     name: "Trucha al limon",
     price: 780.45,
     category: "Platos",
-
   },
   {
     id: 9,
@@ -225,4 +222,19 @@ export const platosComanda = [
   { nombre: "Comida Prueba" },
   { nombre: "Comida Prueba" },
   { nombre: "Comida Prueba" },
+];
+
+export const numberTables = [
+  { numero: 1, color: "red" },
+  { numero: 2, color: "violet" },
+  { numero: 3, color: "white" },
+  { numero: 4, color: "pink" },
+  { numero: 5, color: "green" },
+  { numero: 6, color: "grey" },
+  { numero: 7, color: "tomato" },
+  { numero: 8, color: "blue" },
+  { numero: 9, color: "orange" },
+  { numero: 10, color: "brown" },
+  { numero: 11, color: "yellow" },
+  { numero: 12, color: "red" },
 ];

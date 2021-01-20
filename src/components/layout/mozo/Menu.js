@@ -5,6 +5,20 @@ import purple from "@material-ui/core/colors/purple";
 import MenuFooter from "./MenuFooter";
 import MenuItems from "./MenuItems";
 import Divider from "@material-ui/core/Divider";
+// consulta a la  API Graphql
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+
+const GET_DISHES = gql`
+  {
+    dishes {
+      _id
+      name
+      price
+      category
+    }
+  }
+`;
 
 //----- Componente de Menu de Items ---- //
 
@@ -15,6 +29,13 @@ const useStyle = makeStyles(() => ({
 }));
 
 const Menu = () => {
+  // consulta a partir del hook de apollo
+  const { loading, error, data } = useQuery(GET_DISHES);
+  let dishes = [];
+  if (!loading) {
+    dishes = data.dishes.filter((item) => item.category === "Rapidas");
+  }
+
   const classes = useStyle();
   return (
     <Grid container md={12}>
@@ -44,7 +65,7 @@ const Menu = () => {
             <Typography>Cantidad</Typography>
           </Grid>
         </Box>
-        <MenuItems />
+        {!loading && <MenuItems dishes={dishes} />}
       </Grid>
       <Grid item md={12}>
         <Box border={0} m={2} align="center">

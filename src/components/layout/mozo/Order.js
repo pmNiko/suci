@@ -12,12 +12,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import OrderFooter from "./OrderFooter";
 import { connect } from "react-redux";
+import { removeItem } from "../../../redux/actions/orderAction";
 
 //----- Componente de Menu de Items ---- //
 
-const Order = ({ orders }) => {
+const Order = ({ orders, remove }) => {
   const order = orders[0];
   // console.log("Order.js: ", order.dishes[0]);
+
+  const removeDish = (item, order_id) => {
+    // console.log({ ...item, order_id });
+    remove({ ...item, order_id });
+  };
+
   return (
     <div>
       <Grid container spacing={1} justify="center">
@@ -43,8 +50,8 @@ const Order = ({ orders }) => {
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>Plato</TableCell>
+                    <TableCell>Eliminar</TableCell>
+                    <TableCell>Item</TableCell>
                     <TableCell>Cantidad</TableCell>
                     <TableCell>Quitar</TableCell>
                     <TableCell>Agregar</TableCell>
@@ -57,9 +64,7 @@ const Order = ({ orders }) => {
                       <TableCell component="th" scope="row">
                         <IconButton
                           aria-label="delete"
-                          onClick={() => {
-                            console.log("Eliminar");
-                          }}
+                          onClick={() => removeDish(item, order._id)}
                         >
                           <DeleteIcon fontSize="small" />
                         </IconButton>
@@ -113,4 +118,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Order);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    remove: (item) => dispatch(removeItem(item)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Order);

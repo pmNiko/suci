@@ -1,5 +1,10 @@
 // import { orders } from "../../utils/database";
-import { FETCH_ORDERS, MODIFY_ORDER, ADD_ITEM } from "../actions/orderAction";
+import {
+  FETCH_ORDERS,
+  MODIFY_ORDER,
+  ADD_ITEM,
+  REMOVE_ITEM,
+} from "../actions/orderAction";
 
 // Estado inicial
 const initialState = { orders: [] };
@@ -33,6 +38,20 @@ export function order(state = initialState, action) {
               delete newItem.order_id;
               // console.log(newItem);
               order.dishes = [newItem, ...order.dishes];
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case REMOVE_ITEM:
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              order.dishes = order.dishes.filter(
+                (dish) => dish._id !== action.payload._id
+              );
             }
             return order;
           }),

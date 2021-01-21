@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-// import { Typography, Breadcrumbs, Link } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -12,7 +10,7 @@ import FreeBreakfastIcon from "@material-ui/icons/FreeBreakfast";
 
 const useStyles = makeStyles({
   root: {
-    width: 800,
+    width: 700,
   },
 });
 
@@ -66,18 +64,3 @@ const MenuFooter = ({ setCategory, category }) => {
 };
 
 export default MenuFooter;
-
-// const useStyles = makeStyles({
-//   fontSize: {
-//     fontSize: "13px",
-//   },
-// });
-
-// <Breadcrumbs className={classes.fontSize}>
-// 	<Link>Rapidas</Link>
-// 	<Link>Platos</Link>
-// 	<Link>Ensaladas</Link>
-// 	<Link>Postres</Link>
-// 	<Link>Refrescos</Link>
-// 	<Link>Bebibles</Link>
-// </Breadcrumbs>

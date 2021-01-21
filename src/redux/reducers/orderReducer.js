@@ -28,11 +28,10 @@ export function order(state = initialState, action) {
       return {
         orders: [
           ...state.orders.map((order) => {
-            if (order._id === action.payload.nC) {
+            if (order._id === action.payload.order_id) {
               let newItem = action.payload;
-              delete newItem.nC;
-              newItem.delivered = false;
-              console.log(newItem);
+              delete newItem.order_id;
+              // console.log(newItem);
               order.dishes = [newItem, ...order.dishes];
             }
             return order;

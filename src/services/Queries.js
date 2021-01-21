@@ -1,5 +1,4 @@
 import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
 
 // query "dishes" a la api de GraphQL
 export const GET_DISHES = gql`

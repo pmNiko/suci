@@ -12,8 +12,8 @@ import { connect } from "react-redux";
 //----- Componente de Menu de Items ---- //
 
 const Order = ({ orders }) => {
-  // console.log("Order.js: ", orders);
   const order = orders[0];
+  // console.log("Order.js: ", order.dishes[0]);
   return (
     <div>
       <Grid container spacing={1} justify="center">
@@ -22,10 +22,10 @@ const Order = ({ orders }) => {
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Comanda {order.number}</TableCell>
-                  <TableCell>Mesa: {order.table} </TableCell>
-                  <TableCell>Fecha: {order.date}</TableCell>
-                  <TableCell>Hora: {order.time} </TableCell>
+                  <TableCell>Comanda {order?.number}</TableCell>
+                  <TableCell>Mesa: {order?.table} </TableCell>
+                  <TableCell>Fecha: {order?.date}</TableCell>
+                  <TableCell>Hora: {order?.time} </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody></TableBody>
@@ -68,7 +68,7 @@ const Order = ({ orders }) => {
                         </span>
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {item.delivered.toString()}
+                        {item.state && "pendiente"}
                       </TableCell>
                     </TableRow>
                   ))}

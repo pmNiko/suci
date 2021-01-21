@@ -1,12 +1,11 @@
 import React from "react";
 import { Grid, Typography, Box } from "@material-ui/core/";
 import Button from "@material-ui/core/Button";
-import { items } from "../../../utils/database";
 import { connect } from "react-redux";
 import { addItem } from "../../../redux/actions/orderAction";
 
 const MenuItems = ({ dishes, add }) => {
-  const nC = 3;
+  const nC = "60084051febd1d079e8d43bb";
   return (
     <Grid item md={12}>
       {dishes.map((item) => (

@@ -4,6 +4,8 @@ import App from "./App";
 import "./index.css";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 // Instanciamos el cliente de Apollo
 const client = new ApolloClient({
@@ -13,7 +15,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

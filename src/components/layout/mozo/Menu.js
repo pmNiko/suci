@@ -7,25 +7,13 @@ import MenuItems from "./MenuItems";
 import Divider from "@material-ui/core/Divider";
 // consulta a la  API Graphql
 import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { GET_DISHES } from "../../../services/Queries";
 
 const useStyle = makeStyles(() => ({
   test: {
     background: purple[500],
   },
 }));
-
-// query a la api de GraphQL
-const GET_DISHES = gql`
-  {
-    dishes {
-      _id
-      name
-      price
-      category
-    }
-  }
-`;
 
 //----- Componente de Menu padre ------ //
 

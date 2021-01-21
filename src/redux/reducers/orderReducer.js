@@ -1,11 +1,17 @@
-import { orders } from "../../utils/database";
-import { MODIFY_ORDER, ADD_ITEM } from "../actions/orderAction";
+// import { orders } from "../../utils/database";
+import { FETCH_ORDERS, MODIFY_ORDER, ADD_ITEM } from "../actions/orderAction";
 
 // Estado inicial
-const initialState = { orders };
+const initialState = { orders: [] };
 
 export function order(state = initialState, action) {
+  // console.log("Action payload: ", action.payload);
   switch (action.type) {
+    case FETCH_ORDERS:
+      return {
+        orders: action.payload,
+      };
+
     case MODIFY_ORDER:
       return {
         orders: [
@@ -22,10 +28,12 @@ export function order(state = initialState, action) {
       return {
         orders: [
           ...state.orders.map((order) => {
-            if (order.id === action.payload.nC) {
-              let newOrder = action.payload;
-              newOrder.despachado = false;
-              order.dishes = [newOrder, ...order.dishes];
+            if (order._id === action.payload.nC) {
+              let newItem = action.payload;
+              delete newItem.nC;
+              newItem.delivered = false;
+              console.log(newItem);
+              order.dishes = [newItem, ...order.dishes];
             }
             return order;
           }),

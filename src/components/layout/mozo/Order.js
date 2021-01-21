@@ -12,17 +12,24 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import OrderFooter from "./OrderFooter";
 import { connect } from "react-redux";
-import { removeItem } from "../../../redux/actions/orderAction";
+import {
+  removeItem,
+  incrementItem,
+  decrementItem,
+} from "../../../redux/actions/orderAction";
 // consulta a la  API Graphql
 import { useMutation } from "@apollo/react-hooks";
-import { REMOVE_ITEM } from "../../../services/Mutations";
+import {
+  REMOVE_ITEM,
+  INCREMENT_ITEM,
+  DECREMENT_ITEM,
+} from "../../../services/Mutations";
 
 //----- Componente de Menu de Items ---- //
 
-const Order = ({ orders, remove }) => {
+const Order = ({ orders, remove, inc, dec }) => {
   const order = orders[0];
-  // console.log("Order.js: ", order.dishes[0]);
-  // instaciamos la mutación que vamos a utilizar
+  // Eliminación de un item de la comanda
   const [popDishToOrder] = useMutation(REMOVE_ITEM);
 
   const removeDish = async (item, order_id) => {
@@ -34,8 +41,46 @@ const Order = ({ orders, remove }) => {
     })
       .then((result) => {
         let { dishes } = result.data.popDishToOrder;
-        console.log(dishes); //ya no se encuentra el item incluido
+        // console.log(dishes); //ya no se encuentra el item incluido
         remove({ ...item, order_id });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // Incrementa la cantidad de un item de la comanda
+  const [incrementDishToOrder] = useMutation(INCREMENT_ITEM);
+
+  const incrementDish = async (item, order_id) => {
+    await incrementDishToOrder({
+      variables: {
+        order_id: order_id,
+        dish_id: item._id,
+      },
+    })
+      .then((result) => {
+        let { dishes } = result.data.incrementDishToOrder;
+        // console.log("Dishes: ", dishes); //aumento la cantidad
+        inc({ ...item, order_id });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // Decrementa la cantidad de un item de la comanda
+  const [decrementDishToOrder] = useMutation(DECREMENT_ITEM);
+
+  const decrementDish = async (item, order_id) => {
+    await decrementDishToOrder({
+      variables: {
+        order_id: order_id,
+        dish_id: item._id,
+      },
+    })
+      .then((result) => {
+        let { dishes } = result.data.decrementDishToOrder;
+        // console.log("Dishes: ", dishes); //aumento la cantidad
+        dec({ ...item, order_id });
       })
       .catch((error) => {
         console.log(error);
@@ -95,9 +140,7 @@ const Order = ({ orders, remove }) => {
                       <TableCell component="th" scope="row">
                         <IconButton
                           aria-label="RemoveCircleOutlineIcon"
-                          onClick={() => {
-                            console.log("Quitar");
-                          }}
+                          onClick={() => decrementDish(item, order._id)}
                         >
                           <RemoveCircleOutlineIcon fontSize="small" />
                         </IconButton>
@@ -105,9 +148,7 @@ const Order = ({ orders, remove }) => {
                       <TableCell component="th" scope="row">
                         <IconButton
                           aria-label="AddCircleOutlineIcon"
-                          onClick={() => {
-                            console.log("Agregar");
-                          }}
+                          onClick={() => incrementDish(item, order._id)}
                         >
                           <AddCircleOutlineIcon fontSize="small" />
                         </IconButton>
@@ -138,6 +179,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     remove: (item) => dispatch(removeItem(item)),
+    inc: (item) => dispatch(incrementItem(item)),
+    dec: (item) => dispatch(decrementItem(item)),
   };
 };
 

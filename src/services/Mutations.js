@@ -29,3 +29,29 @@ export const REMOVE_ITEM = gql`
     }
   }
 `;
+
+export const INCREMENT_ITEM = gql`
+  # definición de la mutación
+  mutation IncrementDishToOrder($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    incrementDishToOrder(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+        count
+      }
+    }
+  }
+`;
+
+export const DECREMENT_ITEM = gql`
+  # definición de la mutación
+  mutation IncrementDishToOrder($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    decrementDishToOrder(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+        count
+      }
+    }
+  }
+`;

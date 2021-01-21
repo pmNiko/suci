@@ -27,6 +27,7 @@ export const GET_ORDERS = gql`
         name
         price
         category
+        count
         state
       }
     }

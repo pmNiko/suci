@@ -1,5 +1,9 @@
 import React from "react";
 import { Grid, Box } from "@material-ui/core/";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -42,8 +46,8 @@ const Order = ({ orders }) => {
                     <TableCell></TableCell>
                     <TableCell>Plato</TableCell>
                     <TableCell>Cantidad</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>Quitar</TableCell>
+                    <TableCell>Agregar</TableCell>
                     <TableCell>Estado</TableCell>
                   </TableRow>
                 </TableHead>
@@ -51,21 +55,40 @@ const Order = ({ orders }) => {
                   {order.dishes?.map((item) => (
                     <TableRow key={1}>
                       <TableCell component="th" scope="row">
-                        <span class="material-icons">delete_outline</span>
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => {
+                            console.log("Eliminar");
+                          }}
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {item.name}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {item.price}
+                        {item.count}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        <span class="material-icons">add_circle_outline</span>
+                        <IconButton
+                          aria-label="RemoveCircleOutlineIcon"
+                          onClick={() => {
+                            console.log("Quitar");
+                          }}
+                        >
+                          <RemoveCircleOutlineIcon fontSize="small" />
+                        </IconButton>
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        <span class="material-icons">
-                          remove_circle_outline
-                        </span>
+                        <IconButton
+                          aria-label="AddCircleOutlineIcon"
+                          onClick={() => {
+                            console.log("Agregar");
+                          }}
+                        >
+                          <AddCircleOutlineIcon fontSize="small" />
+                        </IconButton>
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {item.state && "pendiente"}
@@ -77,11 +100,8 @@ const Order = ({ orders }) => {
             </TableContainer>
           </Box>
         </Grid>
-        <Grid item md={12}>
-          <Box border={0} m={2} align="center">
-            <OrderFooter />
-          </Box>
-        </Grid>
+
+        <OrderFooter />
       </Grid>
     </div>
   );

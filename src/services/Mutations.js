@@ -11,6 +11,7 @@ export const ADD_ITEM = gql`
         name
         price
         category
+        count
         state
       }
     }

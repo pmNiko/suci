@@ -17,3 +17,15 @@ export const ADD_ITEM = gql`
     }
   }
 `;
+
+export const REMOVE_ITEM = gql`
+  # definición de la mutación
+  mutation PopDishToOrder($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    popDishToOrder(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+      }
+    }
+  }
+`;

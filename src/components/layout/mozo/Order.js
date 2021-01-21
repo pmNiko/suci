@@ -13,16 +13,33 @@ import TableRow from "@material-ui/core/TableRow";
 import OrderFooter from "./OrderFooter";
 import { connect } from "react-redux";
 import { removeItem } from "../../../redux/actions/orderAction";
+// consulta a la  API Graphql
+import { useMutation } from "@apollo/react-hooks";
+import { REMOVE_ITEM } from "../../../services/Mutations";
 
 //----- Componente de Menu de Items ---- //
 
 const Order = ({ orders, remove }) => {
   const order = orders[0];
   // console.log("Order.js: ", order.dishes[0]);
+  // instaciamos la mutación que vamos a utilizar
+  const [popDishToOrder] = useMutation(REMOVE_ITEM);
 
-  const removeDish = (item, order_id) => {
-    // console.log({ ...item, order_id });
-    remove({ ...item, order_id });
+  const removeDish = async (item, order_id) => {
+    await popDishToOrder({
+      variables: {
+        order_id: order_id,
+        dish_id: item._id,
+      },
+    })
+      .then((result) => {
+        let { dishes } = result.data.popDishToOrder;
+        console.log(dishes); //ya no se encuentra el item incluido
+        remove({ ...item, order_id });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

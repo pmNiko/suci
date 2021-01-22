@@ -40,7 +40,7 @@ function App({ fetchOrders }) {
             {/* Route se encarga de sentenciar las rutas con las cuales
             renderear los componentes y la variante exact matchea la ruta exacta*/}
 
-            <Route path="/" exact component={IndexMozo} />
+            <Route path="/" exact component={Floor} />
             <Route path="/mozo/:order_id_param" exact component={IndexMozo} />
             <Route path="/kitchen" exact component={Kitchen} />
             <Route path="/till" exact component={Till} />

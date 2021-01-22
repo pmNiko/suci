@@ -14,6 +14,7 @@ import React, { lazy, Suspense } from "react";
 const Menu = lazy(() => import("./components/layout/mozo/IndexMozo"));
 const Kitchen = lazy(() => import("./components/pages/kitchen"));
 const Till = lazy(() => import("./components/layout/till/Till"));
+const Floor = lazy(() => import("./components/pages/floor"));
 
 function App() {
   return (
@@ -32,8 +33,9 @@ function App() {
             <Provider store={store}>
               <Route path="/" exact component={Menu} />
               <Route path="/menu" exact component={Menu} />
-              <Route path="/till" exact component={Till} />
               <Route path="/kitchen" exact component={Kitchen} />
+              <Route path="/till" exact component={Till} />
+              <Route path="/floor" exact component={Floor} />
             </Provider>
           </Switch>
         </Suspense>

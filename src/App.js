@@ -17,6 +17,7 @@ import React, { lazy, Suspense, useEffect } from "react";
 const Menu = lazy(() => import("./components/layout/mozo/IndexMozo"));
 const Kitchen = lazy(() => import("./components/pages/kitchen"));
 const Till = lazy(() => import("./components/layout/till/Till"));
+const Floor = lazy(() => import("./components/pages/floor"));
 
 function App({ fetchOrders }) {
   // consulta a partir del hook de apollo
@@ -38,10 +39,12 @@ function App({ fetchOrders }) {
           <Switch>
             {/* Route se encarga de sentenciar las rutas con las cuales
             renderear los componentes y la variante exact matchea la ruta exacta*/}
+
             <Route path="/" exact component={Menu} />
             <Route path="/menu" exact component={Menu} />
-            <Route path="/till" exact component={Till} />
             <Route path="/kitchen" exact component={Kitchen} />
+            <Route path="/till" exact component={Till} />
+            <Route path="/floor" exact component={Floor} />
           </Switch>
         </Suspense>
       </Router>

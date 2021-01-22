@@ -69,7 +69,7 @@ const ComandaCard = ({ orders, modify }) => {
   return (
     <Grid container justify="center">
       {/* //   {listaComanda.map(comandaCard)} */}
-      {orders.map(({ fecha, mesa, id, numero, pendiente }, index) => (
+      {orders.map(({ fecha, mesa, id, numero, closed }, index) => (
         <Grid item key={index}>
           <Card className={classes.root} onClick={handleOpen}>
             <CardContent>
@@ -98,7 +98,7 @@ const ComandaCard = ({ orders, modify }) => {
                   Ver
                 </Button>
                 <Typography className={classes.semaforo}>
-                  Pendiente: {pendiente.toString()}
+                  Cerrada: {closed.toString()}
                 </Typography>
               </Grid>
             </CardActions>

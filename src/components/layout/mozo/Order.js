@@ -25,10 +25,14 @@ import {
   DECREMENT_ITEM,
 } from "../../../services/Mutations";
 
+import { useParams } from "react-router-dom";
+
 //----- Componente de Menu de Items ---- //
 
 const Order = ({ orders, remove, inc, dec }) => {
-  const order = orders[0];
+  const { order_id_param } = useParams();
+  const order = orders.filter((order) => order._id === order_id_param)[0];
+
   // Eliminación de un item de la comanda
   const [popDishToOrder] = useMutation(REMOVE_ITEM);
 

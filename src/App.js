@@ -14,7 +14,7 @@ import React, { lazy, Suspense, useEffect } from "react";
     lazy load hace que los componentes se carguen de manera
     diferida a medida que los vayamos requiriendo. Lazy busca 
     el componente y Suspense lo inyecta al DOM */
-const Menu = lazy(() => import("./components/layout/mozo/IndexMozo"));
+const IndexMozo = lazy(() => import("./components/layout/mozo/IndexMozo"));
 const Kitchen = lazy(() => import("./components/pages/kitchen"));
 const Till = lazy(() => import("./components/layout/till/Till"));
 const Floor = lazy(() => import("./components/pages/floor"));
@@ -40,8 +40,8 @@ function App({ fetchOrders }) {
             {/* Route se encarga de sentenciar las rutas con las cuales
             renderear los componentes y la variante exact matchea la ruta exacta*/}
 
-            <Route path="/" exact component={Menu} />
-            <Route path="/menu" exact component={Menu} />
+            <Route path="/" exact component={IndexMozo} />
+            <Route path="/mozo/:order_id_param" exact component={IndexMozo} />
             <Route path="/kitchen" exact component={Kitchen} />
             <Route path="/till" exact component={Till} />
             <Route path="/floor" exact component={Floor} />

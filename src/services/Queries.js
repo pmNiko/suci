@@ -33,3 +33,14 @@ export const GET_ORDERS = gql`
     }
   }
 `;
+
+export const GET_TABLES = gql`
+  {
+    tables {
+      number
+      color
+      free
+      order
+    }
+  }
+`;

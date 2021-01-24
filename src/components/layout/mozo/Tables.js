@@ -1,15 +1,19 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { numberTables } from "../../../utils/database";
+// consulta a la  API Graphql
+import { useQuery } from "@apollo/react-hooks";
+import { GET_TABLES } from "../../../services/Queries";
 
 import Table from "./Table";
 
 const Tables = () => {
+  // consulta a partir del hook de apollo
+  const { loading, error, data } = useQuery(GET_TABLES);
+
   return (
     <Grid container justify="center">
-      {numberTables.map((table, index) => (
-        <Table key={index} {...table} />
-      ))}
+      {loading ||
+        data.tables.map((table, index) => <Table key={index} {...table} />)}
     </Grid>
   );
 };

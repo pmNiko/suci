@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Table = ({ color, numero }) => {
-  const order_id_param = "60099cd05b26f906d3795594";
+const Table = ({ color, number, free, order }) => {
+  const order_id_param = order;
   const classes = useStyles();
   return (
     <Link to={`/mozo/${order_id_param}`} style={{ textDecoration: "none" }}>
@@ -56,7 +56,10 @@ const Table = ({ color, numero }) => {
         <Card className={classes.root} style={{ backgroundColor: `${color}` }}>
           <CardContent>
             <Typography variant="h5" component="h2">
-              N° Mesa: {numero}
+              N° Mesa: {number}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              Libre: {free.toString()}
             </Typography>
           </CardContent>
         </Card>

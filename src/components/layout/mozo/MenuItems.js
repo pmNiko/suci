@@ -6,9 +6,12 @@ import { addItem } from "../../../redux/actions/orderAction";
 // consulta a la  API Graphql
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_ITEM } from "../../../services/Mutations";
+import { useParams } from "react-router-dom";
 
 // ----- Componente encargado de mostrar los items -----
 const MenuItems = ({ dishes, add }) => {
+  const { order_id_param } = useParams();
+  const order_id = order_id_param;
   // instaciamos la mutación que vamos a utilizar
   const [addDishToOrder] = useMutation(ADD_ITEM);
 
@@ -30,7 +33,6 @@ const MenuItems = ({ dishes, add }) => {
       });
   };
 
-  const order_id = "60099cd05b26f906d3795594";
   return (
     <Grid item md={12}>
       {dishes.map((item) => (

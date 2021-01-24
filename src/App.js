@@ -27,6 +27,7 @@ function App({ fetchOrders }) {
   useEffect(() => {
     loading || fetchOrders(data.orders);
   }, [loading]);
+
   return (
     <ThemeProvider theme={theme}>
       {/* El BrowserRouter es quien maneja el routing y este va en el 

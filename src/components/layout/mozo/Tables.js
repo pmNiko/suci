@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import { Grid, Box } from "@material-ui/core/";
 // consulta a la  API Graphql
 import { useQuery } from "@apollo/react-hooks";
 import { GET_TABLES } from "../../../services/Queries";

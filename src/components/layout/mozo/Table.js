@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import { Grid, Box } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,21 +52,42 @@ const useStyles = makeStyles((theme) => ({
 const Table = ({ color, number, free, order }) => {
   const order_id_param = order;
   const classes = useStyles();
+  const history = useHistory();
+  const send = () => {
+    if (free) {
+      alert("Necesita crear comanda");
+    } else {
+      history.push(`/mozo/${order_id_param}`);
+    }
+  };
   return (
-    <Link to={`/mozo/${order_id_param}`} style={{ textDecoration: "none" }}>
+    <Box marginTop={10}>
       <Grid Item>
         <Card className={classes.root} style={{ backgroundColor: `${color}` }}>
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              N° Mesa: {number}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              Libre: {free.toString()}
-            </Typography>
-          </CardContent>
+          <Box mb={3}>
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                Mesa {number}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                {free ? "Libre" : "Ocupada"}
+              </Typography>
+            </CardContent>
+            {/* <Link to={`/mozo/${order_id_param}`} style={{ textDecoration: "none" }}></Link> */}
+          </Box>
+          <Button
+            variant="contained"
+            size="small"
+            color="ineriht"
+            className={classes.button}
+            startIcon={<SendIcon />}
+            onClick={send}
+          >
+            {free ? "ATENDER" : "VER"}
+          </Button>
         </Card>
       </Grid>
-    </Link>
+    </Box>
   );
 };
 

@@ -20,7 +20,7 @@ export function table(state = initialState, action) {
         tables: [
           ...state.tables.map((table) => {
             if (table.number === action.payload.number) {
-              table.free = false;
+              table.free = !table.free;
               table.order = action.payload.order_id_param;
             }
             return table;
@@ -33,7 +33,7 @@ export function table(state = initialState, action) {
         tables: [
           ...state.tables.map((table) => {
             if (table.number === action.payload) {
-              table.free = true;
+              table.free = !table.free;
               delete table.order;
             }
             return table;

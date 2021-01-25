@@ -27,8 +27,8 @@ export function order(state = initialState, action) {
       return {
         orders: [
           ...state.orders.map((order) => {
-            if (order.id === action.payload) {
-              order.pendiente = !order.pendiente;
+            if (order._id === action.payload) {
+              order.closed = !order.closed;
             }
             return order;
           }),

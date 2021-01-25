@@ -68,10 +68,9 @@ const ComandaCard = ({ orders, modify }) => {
 
   return (
     <Grid container justify="center">
-      {/* //   {listaComanda.map(comandaCard)} */}
       {orders !== undefined &&
-        orders.map(({ fecha, mesa, id, numero, closed }, index) => (
-          <Grid item key={index}>
+        orders.map(({ date, time, table, _id, number, closed }, index) => (
+          <Grid item key={_id}>
             <Card className={classes.root} onClick={handleOpen}>
               <CardContent>
                 <Typography
@@ -79,13 +78,13 @@ const ComandaCard = ({ orders, modify }) => {
                   color="textSecondary"
                   gutterBottom
                 >
-                  Fecha : {fecha}
+                  Fecha : {date} {" - "} hora {time}
                 </Typography>
-                <Typography variant="h5" component="h2">
-                  N° Comanda: {numero}
+                <Typography variant="h6" component="h2">
+                  Comanda: {number}
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                  N° Mesa: {mesa}
+                  Mesa: {table}
                 </Typography>
               </CardContent>
               <CardActions>
@@ -93,7 +92,7 @@ const ComandaCard = ({ orders, modify }) => {
                   <Button
                     size="small"
                     onClick={() => {
-                      modify(id);
+                      modify(_id);
                     }}
                   >
                     Ver
@@ -120,7 +119,7 @@ const ComandaCard = ({ orders, modify }) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <ContentCard />
+            <ContentCard {...orders[0]} />
           </div>
         </Fade>
       </Modal>

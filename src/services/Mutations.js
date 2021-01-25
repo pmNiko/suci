@@ -1,6 +1,22 @@
 import { gql } from "apollo-boost";
 
 // creacion de la consulta
+export const CREATE_ORDER = gql`
+  # definición de la mutación
+  mutation CreateOrder($table: Int!) {
+    # ejecución de la mutación
+    createOrder(table: $table) {
+      _id
+      number
+      date
+      time
+      table
+      closed
+    }
+  }
+`;
+
+// creacion de la consulta
 export const ADD_ITEM = gql`
   # definición de la mutación
   mutation AddDishToOrder($order_id: ID!, $dish_id: ID!) {

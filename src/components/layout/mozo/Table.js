@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -7,6 +7,12 @@ import { Grid, Box } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
+import { connect } from "react-redux";
+import { addOrder } from "../../../redux/actions/orderAction";
+import { modifyTable } from "../../../redux/actions/tableAction";
+// consulta a la  API Graphql
+import { useMutation } from "@apollo/react-hooks";
+import { CREATE_ORDER } from "../../../services/Mutations";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +55,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Table = ({ color, number, free, order }) => {
-  const order_id_param = order;
+const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
+  let order_id_param = order;
   const classes = useStyles();
+
+  // instaciamos la mutación que vamos a utilizar
+  const [createOrder] = useMutation(CREATE_ORDER);
+
   const history = useHistory();
-  const send = () => {
+
+  const send = async () => {
     if (free) {
-      alert("Necesita crear comanda");
+      await createOrder({
+        variables: {
+          table: number,
+        },
+      })
+        .then((result) => {
+          let order = result.data.createOrder;
+          order_id_param = order._id;
+          addOrder(order);
+          modifyTable({ number, order_id_param });
+          history.push(`/mozo/${order_id_param}`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       history.push(`/mozo/${order_id_param}`);
     }
@@ -73,7 +98,6 @@ const Table = ({ color, number, free, order }) => {
                 {free ? "Libre" : "Ocupada"}
               </Typography>
             </CardContent>
-            {/* <Link to={`/mozo/${order_id_param}`} style={{ textDecoration: "none" }}></Link> */}
           </Box>
           <Button
             variant="contained"
@@ -91,4 +115,11 @@ const Table = ({ color, number, free, order }) => {
   );
 };
 
-export default Table;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addOrder: (payload) => dispatch(addOrder(payload)),
+    modifyTable: (payload) => dispatch(modifyTable(payload)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Table);

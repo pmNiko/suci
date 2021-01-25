@@ -69,42 +69,43 @@ const ComandaCard = ({ orders, modify }) => {
   return (
     <Grid container justify="center">
       {/* //   {listaComanda.map(comandaCard)} */}
-      {orders.map(({ fecha, mesa, id, numero, closed }, index) => (
-        <Grid item key={index}>
-          <Card className={classes.root} onClick={handleOpen}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                Fecha : {fecha}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                N° Comanda: {numero}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                N° Mesa: {mesa}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Grid container className={classes.rowContainer}>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    modify(id);
-                  }}
+      {orders !== undefined &&
+        orders.map(({ fecha, mesa, id, numero, closed }, index) => (
+          <Grid item key={index}>
+            <Card className={classes.root} onClick={handleOpen}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
                 >
-                  Ver
-                </Button>
-                <Typography className={classes.semaforo}>
-                  Cerrada: {closed.toString()}
+                  Fecha : {fecha}
                 </Typography>
-              </Grid>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
+                <Typography variant="h5" component="h2">
+                  N° Comanda: {numero}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  N° Mesa: {mesa}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Grid container className={classes.rowContainer}>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      modify(id);
+                    }}
+                  >
+                    Ver
+                  </Button>
+                  <Typography className={classes.semaforo}>
+                    Cerrada: {closed.toString()}
+                  </Typography>
+                </Grid>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -129,7 +130,7 @@ const ComandaCard = ({ orders, modify }) => {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders,
+    orders: state.order.orders,
   };
 };
 

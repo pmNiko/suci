@@ -176,7 +176,7 @@ const Order = ({ orders, remove, inc, dec }) => {
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders,
+    orders: state.order.orders,
   };
 };
 

@@ -1,4 +1,5 @@
 export const FETCH_ORDERS = "FETCH_ORDERS";
+export const ADD_ORDER = "ADD_ORDER";
 export const MODIFY_ORDER = "MODIFY_ORDER";
 export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
@@ -9,6 +10,13 @@ export const fetchOrders = (orders) => {
   return {
     type: FETCH_ORDERS,
     payload: orders,
+  };
+};
+
+export const addOrder = (payload) => {
+  return {
+    type: ADD_ORDER,
+    payload,
   };
 };
 

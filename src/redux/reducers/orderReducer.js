@@ -1,6 +1,6 @@
-// import { orders } from "../../utils/database";
 import {
   FETCH_ORDERS,
+  ADD_ORDER,
   MODIFY_ORDER,
   ADD_ITEM,
   REMOVE_ITEM,
@@ -16,6 +16,11 @@ export function order(state = initialState, action) {
     case FETCH_ORDERS:
       return {
         orders: action.payload,
+      };
+
+    case ADD_ORDER:
+      return {
+        orders: [action.payload, ...state.orders],
       };
 
     case MODIFY_ORDER:

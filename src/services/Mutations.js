@@ -71,3 +71,14 @@ export const DECREMENT_ITEM = gql`
     }
   }
 `;
+
+export const REMOVE_ORDER = gql`
+  # definición de la mutación
+  mutation DeleteOrder($order_id: ID!) {
+    # ejecución de la mutación
+    deleteOrder(order_id: $order_id) {
+      _id
+      table
+    }
+  }
+`;

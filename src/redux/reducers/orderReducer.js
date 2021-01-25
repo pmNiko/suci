@@ -2,6 +2,7 @@ import {
   FETCH_ORDERS,
   ADD_ORDER,
   MODIFY_ORDER,
+  REMOVE_ORDER,
   ADD_ITEM,
   REMOVE_ITEM,
   INCREMENT_ITEM,
@@ -32,6 +33,13 @@ export function order(state = initialState, action) {
             }
             return order;
           }),
+        ],
+      };
+
+    case REMOVE_ORDER:
+      return {
+        orders: [
+          ...state.orders.filter((order) => order._id === action.payload),
         ],
       };
 

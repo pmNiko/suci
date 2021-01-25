@@ -4,6 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
+import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,20 +17,26 @@ import {
   removeItem,
   incrementItem,
   decrementItem,
+  removeOrder,
 } from "../../../redux/actions/orderAction";
+import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
 import { useMutation } from "@apollo/react-hooks";
 import {
   REMOVE_ITEM,
   INCREMENT_ITEM,
   DECREMENT_ITEM,
+  REMOVE_ORDER,
 } from "../../../services/Mutations";
+import { useHistory } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 
 //----- Componente de Menu de Items ---- //
 
-const Order = ({ orders, remove, inc, dec }) => {
+const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
+  const history = useHistory();
+
   const { order_id_param } = useParams();
   const order = orders.filter((order) => order._id === order_id_param)[0];
 
@@ -91,6 +98,26 @@ const Order = ({ orders, remove, inc, dec }) => {
       });
   };
 
+  // Elimina la comanda
+  const [deleteOrder] = useMutation(REMOVE_ORDER);
+
+  const popOrder = async (order_id, table) => {
+    await deleteOrder({
+      variables: {
+        order_id: order_id,
+      },
+    })
+      .then((result) => {
+        // let { order } = result.data.deleteOrder;
+        removeOrder(order_id);
+        resetTable(table);
+        history.push("/floor");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Grid container spacing={1} justify="center">
@@ -103,6 +130,16 @@ const Order = ({ orders, remove, inc, dec }) => {
                   <TableCell>Mesa: {order?.table} </TableCell>
                   <TableCell>Fecha: {order?.date}</TableCell>
                   <TableCell>Hora: {order?.time} </TableCell>
+                  <TableCell>
+                    <IconButton aria-label="RemoveCircleOutlineIcon">
+                      <DeleteSweepIcon
+                        fontSize="small"
+                        onClick={() => {
+                          popOrder(order._id, order.table);
+                        }}
+                      />
+                    </IconButton>{" "}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody></TableBody>
@@ -185,6 +222,8 @@ const mapDispatchToProps = (dispatch) => {
     remove: (item) => dispatch(removeItem(item)),
     inc: (item) => dispatch(incrementItem(item)),
     dec: (item) => dispatch(decrementItem(item)),
+    removeOrder: (order_id) => dispatch(removeOrder(order_id)),
+    resetTable: (number) => dispatch(resetTable(number)),
   };
 };
 

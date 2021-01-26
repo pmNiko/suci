@@ -8,7 +8,6 @@ import {
 const initialState = { tables: [] };
 
 export function table(state = initialState, action) {
-  console.log("Reducer: ", action.type);
   switch (action.type) {
     case FETCH_TABLES:
       return {

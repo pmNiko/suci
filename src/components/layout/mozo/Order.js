@@ -18,6 +18,7 @@ import {
   incrementItem,
   decrementItem,
   removeOrder,
+  dishesReadyOrders,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -27,6 +28,7 @@ import {
   INCREMENT_ITEM,
   DECREMENT_ITEM,
   REMOVE_ORDER,
+  DISHES_READY,
 } from "../../../services/Mutations";
 import { useHistory } from "react-router-dom";
 
@@ -34,7 +36,15 @@ import { useParams } from "react-router-dom";
 
 //----- Componente de Menu de Items ---- //
 
-const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
+const Order = ({
+  orders,
+  remove,
+  inc,
+  dec,
+  removeOrder,
+  resetTable,
+  dishesReadyOrders,
+}) => {
   const history = useHistory();
 
   const { order_id_param } = useParams();
@@ -118,6 +128,30 @@ const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
       });
   };
 
+  // Cambia el estado de los items a ready
+  const [dishReadyToOrder] = useMutation(DISHES_READY);
+  const sendKitchen = async () => {
+    let order_id = order._id;
+    let dishes_pending = order.dishes.filter(
+      (dish) => dish.state === "pending"
+    );
+    let dishes = [];
+    dishes_pending.map((dish) => dishes.push(dish._id));
+    dishesReadyOrders({ dishes, order_id });
+    await dishReadyToOrder({
+      variables: {
+        order_id: order_id,
+        dishes: dishes,
+      },
+    })
+      .then((result) => {
+        let { dishes } = result.data.dishReadyToOrder;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Grid container spacing={1} justify="center">
@@ -162,7 +196,7 @@ const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {order.dishes !== undefined &&
+                  {order?.dishes !== undefined &&
                     order.dishes?.map((item) => (
                       <TableRow key={1}>
                         <TableCell component="th" scope="row">
@@ -196,7 +230,7 @@ const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
                           </IconButton>
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          {item.state && "pendiente"}
+                          {item.state === "pending" && "pendiente"}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -206,7 +240,7 @@ const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
           </Box>
         </Grid>
 
-        <OrderFooter />
+        <OrderFooter sendKitchen={sendKitchen} />
       </Grid>
     </div>
   );
@@ -225,6 +259,7 @@ const mapDispatchToProps = (dispatch) => {
     dec: (item) => dispatch(decrementItem(item)),
     removeOrder: (order_id) => dispatch(removeOrder(order_id)),
     resetTable: (number) => dispatch(resetTable(number)),
+    dishesReadyOrders: (payload) => dispatch(dishesReadyOrders(payload)),
   };
 };
 

@@ -7,6 +7,7 @@ import {
   REMOVE_ITEM,
   INCREMENT_ITEM,
   DECREMENT_ITEM,
+  DISHES_READY_ORDER,
 } from "../actions/orderAction";
 
 // Estado inicial
@@ -76,7 +77,7 @@ export function order(state = initialState, action) {
         orders: [
           ...state.orders.map((order) => {
             if (order._id === action.payload.order_id) {
-              order.dishes.map((item) => {
+              order.dishes.forEach((item) => {
                 if (item._id === action.payload._id) {
                   item.count += 1;
                 }
@@ -92,10 +93,29 @@ export function order(state = initialState, action) {
         orders: [
           ...state.orders.map((order) => {
             if (order._id === action.payload.order_id) {
-              order.dishes.map((item) => {
+              order.dishes.forEach((item) => {
                 if (item._id === action.payload._id) {
                   item.count -= 1;
                 }
+              });
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case DISHES_READY_ORDER:
+      console.log(action.payload.dishes);
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              action.payload.dishes.forEach((ele) => {
+                order.dishes.forEach((item) => {
+                  if (item._id === ele) {
+                    item.state = "ready";
+                  }
+                });
               });
             }
             return order;

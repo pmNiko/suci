@@ -6,6 +6,7 @@ export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export const INCREMENT_ITEM = "INCREMENT_ITEM";
 export const DECREMENT_ITEM = "DECREMENT_ITEM";
+export const DISHES_READY_ORDER = "DISHES_READY_ORDER";
 
 export const fetchOrders = (orders) => {
   return {
@@ -60,5 +61,12 @@ export const decrementItem = (item) => {
   return {
     type: DECREMENT_ITEM,
     payload: item,
+  };
+};
+
+export const dishesReadyOrders = (payload) => {
+  return {
+    type: DISHES_READY_ORDER,
+    payload,
   };
 };

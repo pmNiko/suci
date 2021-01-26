@@ -45,13 +45,14 @@ export function order(state = initialState, action) {
       };
 
     case ADD_ITEM:
+      console.log(action.payload);
       return {
         orders: [
           ...state.orders.map((order) => {
             if (order._id === action.payload.order_id) {
-              let newItem = action.payload;
-              delete newItem.order_id;
-              order.dishes = [newItem, ...order.dishes];
+              delete action.payload.order_id;
+              if (order.dishes === undefined) order.dishes = [];
+              order.dishes = [action.payload, ...order.dishes];
             }
             return order;
           }),

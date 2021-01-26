@@ -65,15 +65,31 @@ const Order = ({
     if (order.dishes === undefined) {
       setDesability_send_kitchen(true);
     } else {
-      if (order.dishes.length !== 0) {
+      if (order.dishes.length >= 0) {
         let dishes_pending = order.dishes.filter(
           (dish) => dish.state === "pending"
         );
-        setDesability_send_kitchen(dishes_pending > 0);
+        setDesability_send_kitchen(!dishes_pending.length > 0);
       } else {
         setDesability_send_kitchen(true);
       }
-      console.log(desability_send_kitchen);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    if (order.dishes === undefined) {
+      setDesability_bill(true);
+    } else {
+      if (order.dishes.length >= 0) {
+        let dishes_delivered = order.dishes.filter(
+          (dish) => dish.state === "delivered"
+        );
+        let hability = order.dishes.length === dishes_delivered.length;
+        let disable = order.dishes.length > 0 && hability;
+        setDesability_bill(!disable);
+      } else {
+        setDesability_bill(true);
+      }
     }
   }, [orders]);
 
@@ -361,6 +377,7 @@ const Order = ({
           sendKitchen={sendKitchen}
           bill={bill}
           desability_send_kitchen={desability_send_kitchen}
+          desability_bill={desability_bill}
         />
       </Grid>
     </div>

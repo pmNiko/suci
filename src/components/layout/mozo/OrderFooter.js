@@ -10,7 +10,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuFooter = ({ sendKitchen, bill, desability_send_kitchen }) => {
+const MenuFooter = ({
+  sendKitchen,
+  bill,
+  desability_send_kitchen,
+  desability_bill,
+}) => {
   const classes = useStyles();
   return (
     <Grid container md={12}>
@@ -21,6 +26,7 @@ const MenuFooter = ({ sendKitchen, bill, desability_send_kitchen }) => {
             size="small"
             color="primary"
             className={classes.button}
+            disabled={desability_bill}
             onClick={() => {
               bill();
             }}

@@ -9,6 +9,8 @@ import {
   DECREMENT_ITEM,
   DISHES_PREPARING_ORDER,
   DISHES_READY_ORDER,
+  DISH_DELIVERED,
+  DISH_READY,
 } from "../actions/orderAction";
 
 // Estado inicial
@@ -125,7 +127,6 @@ export function order(state = initialState, action) {
       };
 
     case DISHES_PREPARING_ORDER:
-      console.log(action.payload.dishes);
       return {
         orders: [
           ...state.orders.map((order) => {
@@ -136,6 +137,39 @@ export function order(state = initialState, action) {
                     item.state = "preparing";
                   }
                 });
+              });
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case DISH_DELIVERED:
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              order.dishes.forEach((item) => {
+                if (item._id === action.payload.dish_id) {
+                  item.state = "delivered";
+                }
+              });
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case DISH_READY:
+      console.log("Reducer: ", action.payload.order_id, action.payload.dish_id);
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              order.dishes.forEach((item) => {
+                if (item._id === action.payload.dish_id) {
+                  item.state = "ready";
+                }
               });
             }
             return order;

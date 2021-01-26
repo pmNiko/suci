@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { green } from "@material-ui/core/colors/";
+import React from "react";
 import { Grid, Box, Checkbox } from "@material-ui/core/";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -20,6 +19,8 @@ import {
   decrementItem,
   removeOrder,
   dishesPreparingToOrder,
+  dishDelivered,
+  dishReady,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -45,11 +46,16 @@ const Order = ({
   removeOrder,
   resetTable,
   dishesPreparing,
+  dishDelivered,
+  dishReady,
 }) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const onTable = (order_id, dish) => {
+    let dish_id = dish._id;
+    if (dish.state === "ready") {
+      dishDelivered({ order_id, dish_id });
+    } else {
+      dishReady({ order_id, dish_id });
+    }
   };
   const history = useHistory();
 
@@ -240,8 +246,19 @@ const Order = ({
                           )}
                           {item.state === "ready" && (
                             <Checkbox
-                              checked={index.checked}
-                              onChange={handleChange}
+                              checked={false}
+                              onChange={() => {
+                                onTable(order._id, item);
+                              }}
+                              color="primary"
+                            />
+                          )}
+                          {item.state === "delivered" && (
+                            <Checkbox
+                              checked={true}
+                              onChange={() => {
+                                onTable(order._id, item);
+                              }}
                               color="primary"
                             />
                           )}
@@ -280,6 +297,8 @@ const mapDispatchToProps = (dispatch) => {
     removeOrder: (order_id) => dispatch(removeOrder(order_id)),
     resetTable: (number) => dispatch(resetTable(number)),
     dishesPreparing: (payload) => dispatch(dishesPreparingToOrder(payload)),
+    dishDelivered: (payload) => dispatch(dishDelivered(payload)),
+    dishReady: (payload) => dispatch(dishReady(payload)),
   };
 };
 

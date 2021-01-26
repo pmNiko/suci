@@ -8,6 +8,8 @@ export const INCREMENT_ITEM = "INCREMENT_ITEM";
 export const DECREMENT_ITEM = "DECREMENT_ITEM";
 export const DISHES_PREPARING_ORDER = "DISHES_PREPARING_ORDER";
 export const DISHES_READY_ORDER = "DISHES_READY_ORDER";
+export const DISH_DELIVERED = "DISH_DELIVERED";
+export const DISH_READY = "DISH_READY";
 
 export const fetchOrders = (orders) => {
   return {
@@ -71,9 +73,23 @@ export const dishesPreparingToOrder = (payload) => {
     payload,
   };
 };
+
 export const dishesReadyToOrder = (payload) => {
   return {
     type: DISHES_READY_ORDER,
+    payload,
+  };
+};
+
+export const dishDelivered = (payload) => {
+  return {
+    type: DISH_DELIVERED,
+    payload,
+  };
+};
+export const dishReady = (payload) => {
+  return {
+    type: DISH_READY,
     payload,
   };
 };

@@ -83,6 +83,18 @@ export const REMOVE_ORDER = gql`
   }
 `;
 
+export const DISHES_PREPARING = gql`
+  # definición de la mutación
+  mutation DishPreparingToOrder($order_id: ID!, $dishes: [ID]) {
+    # ejecución de la mutación
+    dishPreparingToOrder(order_id: $order_id, dishes: $dishes) {
+      dishes {
+        _id
+      }
+    }
+  }
+`;
+
 export const DISHES_READY = gql`
   # definición de la mutación
   mutation DishReadyToOrder($order_id: ID!, $dishes: [ID]) {

@@ -7,6 +7,7 @@ import {
   REMOVE_ITEM,
   INCREMENT_ITEM,
   DECREMENT_ITEM,
+  DISHES_PREPARING_ORDER,
   DISHES_READY_ORDER,
 } from "../actions/orderAction";
 
@@ -45,7 +46,6 @@ export function order(state = initialState, action) {
       };
 
     case ADD_ITEM:
-      console.log(action.payload);
       return {
         orders: [
           ...state.orders.map((order) => {
@@ -115,6 +115,25 @@ export function order(state = initialState, action) {
                 order.dishes.forEach((item) => {
                   if (item._id === ele) {
                     item.state = "ready";
+                  }
+                });
+              });
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case DISHES_PREPARING_ORDER:
+      console.log(action.payload.dishes);
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              action.payload.dishes.forEach((ele) => {
+                order.dishes.forEach((item) => {
+                  if (item._id === ele) {
+                    item.state = "preparing";
                   }
                 });
               });

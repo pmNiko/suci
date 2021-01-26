@@ -1,5 +1,6 @@
-import React from "react";
-import { Grid, Box } from "@material-ui/core/";
+import React, { useState } from "react";
+import { green } from "@material-ui/core/colors/";
+import { Grid, Box, Checkbox } from "@material-ui/core/";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -18,7 +19,7 @@ import {
   incrementItem,
   decrementItem,
   removeOrder,
-  dishesReadyOrders,
+  dishesPreparingToOrder,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -28,7 +29,7 @@ import {
   INCREMENT_ITEM,
   DECREMENT_ITEM,
   REMOVE_ORDER,
-  DISHES_READY,
+  DISHES_PREPARING,
 } from "../../../services/Mutations";
 import { useHistory } from "react-router-dom";
 
@@ -43,8 +44,13 @@ const Order = ({
   dec,
   removeOrder,
   resetTable,
-  dishesReadyOrders,
+  dishesPreparing,
 }) => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
   const history = useHistory();
 
   const { order_id_param } = useParams();
@@ -129,7 +135,7 @@ const Order = ({
   };
 
   // Cambia el estado de los items a ready
-  const [dishReadyToOrder] = useMutation(DISHES_READY);
+  const [dishPreparingToOrder] = useMutation(DISHES_PREPARING);
   const sendKitchen = async () => {
     let order_id = order._id;
     let dishes_pending = order.dishes.filter(
@@ -137,15 +143,15 @@ const Order = ({
     );
     let dishes = [];
     dishes_pending.map((dish) => dishes.push(dish._id));
-    dishesReadyOrders({ dishes, order_id });
-    await dishReadyToOrder({
+    dishesPreparing({ dishes, order_id });
+    await dishPreparingToOrder({
       variables: {
         order_id: order_id,
         dishes: dishes,
       },
     })
       .then((result) => {
-        let { dishes } = result.data.dishReadyToOrder;
+        let { dishes } = result.data.dishPreparingToOrder;
       })
       .catch((error) => {
         console.log(error);
@@ -189,15 +195,15 @@ const Order = ({
                   <TableRow>
                     <TableCell>Eliminar</TableCell>
                     <TableCell>Item</TableCell>
-                    <TableCell>Cantidad</TableCell>
-                    <TableCell>Quitar</TableCell>
-                    <TableCell>Agregar</TableCell>
+                    <TableCell align="center">Quitar</TableCell>
+                    <TableCell align="center">Cantidad</TableCell>
+                    <TableCell>Acción</TableCell>
                     <TableCell>Estado</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {order?.dishes !== undefined &&
-                    order.dishes?.map((item) => (
+                    order.dishes?.map((item, index) => (
                       <TableRow key={1}>
                         <TableCell component="th" scope="row">
                           <IconButton
@@ -210,27 +216,41 @@ const Order = ({
                         <TableCell component="th" scope="row">
                           {item.name}
                         </TableCell>
-                        <TableCell component="th" scope="row">
+                        <TableCell component="th" scope="row" align="center">
+                          {item.state === "pending" && (
+                            <IconButton
+                              aria-label="RemoveCircleOutlineIcon"
+                              onClick={() => decrementDish(item, order._id)}
+                            >
+                              <RemoveCircleOutlineIcon fontSize="small" />
+                            </IconButton>
+                          )}
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="center">
                           {item.count}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          <IconButton
-                            aria-label="RemoveCircleOutlineIcon"
-                            onClick={() => decrementDish(item, order._id)}
-                          >
-                            <RemoveCircleOutlineIcon fontSize="small" />
-                          </IconButton>
+                          {item.state === "pending" && (
+                            <IconButton
+                              aria-label="AddCircleOutlineIcon"
+                              onClick={() => incrementDish(item, order._id)}
+                            >
+                              <AddCircleOutlineIcon fontSize="small" />
+                            </IconButton>
+                          )}
+                          {item.state === "ready" && (
+                            <Checkbox
+                              checked={index.checked}
+                              onChange={handleChange}
+                              color="primary"
+                            />
+                          )}
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          <IconButton
-                            aria-label="AddCircleOutlineIcon"
-                            onClick={() => incrementDish(item, order._id)}
-                          >
-                            <AddCircleOutlineIcon fontSize="small" />
-                          </IconButton>
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {item.state === "pending" && "pendiente"}
+                          {item.state === "pending" && "Pendiente"}
+                          {item.state === "preparing" && "Preparando"}
+                          {item.state === "ready" && "Listo"}
+                          {item.state === "delivered" && "En mesa"}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -259,7 +279,7 @@ const mapDispatchToProps = (dispatch) => {
     dec: (item) => dispatch(decrementItem(item)),
     removeOrder: (order_id) => dispatch(removeOrder(order_id)),
     resetTable: (number) => dispatch(resetTable(number)),
-    dishesReadyOrders: (payload) => dispatch(dishesReadyOrders(payload)),
+    dishesPreparing: (payload) => dispatch(dishesPreparingToOrder(payload)),
   };
 };
 

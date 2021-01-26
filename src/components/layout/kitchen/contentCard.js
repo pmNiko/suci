@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Typography, Checkbox, Box, Button } from "@material-ui/core";
-import { platosComanda } from "../../../utils/database";
 
 export const ContentCard = ({ dishes }) => {
   const [checked, setChecked] = React.useState(false);

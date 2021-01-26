@@ -25,7 +25,7 @@ export const addOrder = (payload) => {
   };
 };
 
-export const closeOrder = (payload) => {
+export const billOrder = (payload) => {
   return {
     type: CLOSE_ORDER,
     payload,

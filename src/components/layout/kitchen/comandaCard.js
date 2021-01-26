@@ -11,7 +11,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ContentCard from "./contentCard";
 import { connect } from "react-redux";
-import { closeOrder } from "../../../redux/actions/orderAction";
+import { billOrder } from "../../../redux/actions/orderAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,7 +131,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // modify recibe el payload
-    close: (payload) => dispatch(closeOrder(payload)),
+    close: (payload) => dispatch(billOrder(payload)),
   };
 };
 

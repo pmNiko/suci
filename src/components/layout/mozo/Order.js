@@ -21,7 +21,7 @@ import {
   dishesPreparingToOrder,
   changeDishDelivered,
   changeDishReady,
-  closeOrder,
+  billOrder,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -202,12 +202,12 @@ const Order = ({
     let total_delivered = order.dishes.filter(
       (dish) => dish.state === "delivered"
     ).length;
-    if (items !== total_delivered) {
-      alert("Faltan platos por entregar...");
-    } else {
-      closeOrder(order._id);
+    if (items === total_delivered && items > 0) {
+      billOrder(order._id);
       resetTable(order.table);
       history.push("/");
+    } else {
+      alert("Aun no se puede facturar");
     }
   };
 
@@ -346,7 +346,7 @@ const mapDispatchToProps = (dispatch) => {
     dishesPreparing: (payload) => dispatch(dishesPreparingToOrder(payload)),
     changeDishDelivered: (payload) => dispatch(changeDishDelivered(payload)),
     changeDishReady: (payload) => dispatch(changeDishReady(payload)),
-    closeOrder: (payload) => dispatch(closeOrder(payload)),
+    billOrder: (payload) => dispatch(billOrder(payload)),
   };
 };
 

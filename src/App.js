@@ -25,7 +25,9 @@ function App({ fetchOrders }) {
 
   // loading || console.log("App: ", data.orders);
   useEffect(() => {
-    loading || fetchOrders(data.orders);
+    if (!loading) {
+      fetchOrders(data.orders);
+    }
   }, [loading]);
 
   return (
@@ -40,7 +42,6 @@ function App({ fetchOrders }) {
           <Switch>
             {/* Route se encarga de sentenciar las rutas con las cuales
             renderear los componentes y la variante exact matchea la ruta exacta*/}
-
             <Route path="/" exact component={Floor} />
             <Route path="/mozo/:order_id_param" exact component={IndexMozo} />
             <Route path="/kitchen" exact component={Kitchen} />

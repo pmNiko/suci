@@ -162,43 +162,44 @@ const Order = ({ orders, remove, inc, dec, removeOrder, resetTable }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {order.dishes?.map((item) => (
-                    <TableRow key={1}>
-                      <TableCell component="th" scope="row">
-                        <IconButton
-                          aria-label="delete"
-                          onClick={() => removeDish(item, order._id)}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {item.name}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {item.count}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        <IconButton
-                          aria-label="RemoveCircleOutlineIcon"
-                          onClick={() => decrementDish(item, order._id)}
-                        >
-                          <RemoveCircleOutlineIcon fontSize="small" />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        <IconButton
-                          aria-label="AddCircleOutlineIcon"
-                          onClick={() => incrementDish(item, order._id)}
-                        >
-                          <AddCircleOutlineIcon fontSize="small" />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {item.state && "pendiente"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {order.dishes !== undefined &&
+                    order.dishes?.map((item) => (
+                      <TableRow key={1}>
+                        <TableCell component="th" scope="row">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => removeDish(item, order._id)}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item.name}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item.count}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          <IconButton
+                            aria-label="RemoveCircleOutlineIcon"
+                            onClick={() => decrementDish(item, order._id)}
+                          >
+                            <RemoveCircleOutlineIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          <IconButton
+                            aria-label="AddCircleOutlineIcon"
+                            onClick={() => incrementDish(item, order._id)}
+                          >
+                            <AddCircleOutlineIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {item.state && "pendiente"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>

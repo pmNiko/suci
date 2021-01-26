@@ -21,6 +21,7 @@ import {
   dishesPreparingToOrder,
   changeDishDelivered,
   changeDishReady,
+  closeOrder,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -50,6 +51,7 @@ const Order = ({
   dishesPreparing,
   changeDishDelivered,
   changeDishReady,
+  closeOrder,
 }) => {
   const history = useHistory();
 
@@ -195,6 +197,20 @@ const Order = ({
     }
   };
 
+  const bill = () => {
+    let items = order.dishes.length;
+    let total_delivered = order.dishes.filter(
+      (dish) => dish.state === "delivered"
+    ).length;
+    if (items !== total_delivered) {
+      alert("Faltan platos por entregar...");
+    } else {
+      closeOrder(order._id);
+      resetTable(order.table);
+      history.push("/");
+    }
+  };
+
   return (
     <div>
       <Grid container spacing={1} justify="center">
@@ -308,7 +324,7 @@ const Order = ({
           </Box>
         </Grid>
 
-        <OrderFooter sendKitchen={sendKitchen} />
+        <OrderFooter sendKitchen={sendKitchen} bill={bill} />
       </Grid>
     </div>
   );
@@ -330,6 +346,7 @@ const mapDispatchToProps = (dispatch) => {
     dishesPreparing: (payload) => dispatch(dishesPreparingToOrder(payload)),
     changeDishDelivered: (payload) => dispatch(changeDishDelivered(payload)),
     changeDishReady: (payload) => dispatch(changeDishReady(payload)),
+    closeOrder: (payload) => dispatch(closeOrder(payload)),
   };
 };
 

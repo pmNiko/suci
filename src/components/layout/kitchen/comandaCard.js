@@ -11,7 +11,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ContentCard from "./contentCard";
 import { connect } from "react-redux";
-import { modifyOrder } from "../../../redux/actions/orderAction";
+import { closeOrder } from "../../../redux/actions/orderAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ComandaCard = ({ orders, modify }) => {
+const ComandaCard = ({ orders, close }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [open, setOpen] = React.useState(false);
@@ -89,12 +89,7 @@ const ComandaCard = ({ orders, modify }) => {
               </CardContent>
               <CardActions>
                 <Grid container className={classes.rowContainer}>
-                  <Button
-                    size="small"
-                    onClick={() => {
-                      modify(_id);
-                    }}
-                  >
+                  <Button size="small" onClick={() => {}}>
                     Ver
                   </Button>
                   <Typography className={classes.semaforo}>
@@ -136,7 +131,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // modify recibe el payload
-    modify: (payload) => dispatch(modifyOrder(payload)),
+    close: (payload) => dispatch(closeOrder(payload)),
   };
 };
 

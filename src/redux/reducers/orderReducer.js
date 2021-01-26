@@ -1,7 +1,7 @@
 import {
   FETCH_ORDERS,
   ADD_ORDER,
-  MODIFY_ORDER,
+  CLOSE_ORDER,
   REMOVE_ORDER,
   ADD_ITEM,
   REMOVE_ITEM,
@@ -28,7 +28,7 @@ export function order(state = initialState, action) {
         orders: [action.payload, ...state.orders],
       };
 
-    case MODIFY_ORDER:
+    case CLOSE_ORDER:
       return {
         orders: [
           ...state.orders.map((order) => {
@@ -161,7 +161,6 @@ export function order(state = initialState, action) {
       };
 
     case DISH_READY:
-      console.log("Reducer: ", action.payload.order_id, action.payload.dish_id);
       return {
         orders: [
           ...state.orders.map((order) => {

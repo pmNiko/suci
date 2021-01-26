@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MenuFooter = ({ sendKitchen }) => {
+const MenuFooter = ({ sendKitchen, bill }) => {
   const classes = useStyles();
   return (
     <Grid container md={12}>
@@ -22,7 +22,7 @@ const MenuFooter = ({ sendKitchen }) => {
             color="primary"
             className={classes.button}
             onClick={() => {
-              console.log("Cerrar cuenta");
+              bill();
             }}
             startIcon={<ReceiptIcon />}
           >

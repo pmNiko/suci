@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Checkbox } from "@material-ui/core/";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -58,6 +58,24 @@ const Order = ({
 
   const { order_id_param } = useParams();
   const order = orders.filter((order) => order._id === order_id_param)[0];
+  const [desability_bill, setDesability_bill] = useState(true);
+  const [desability_send_kitchen, setDesability_send_kitchen] = useState(true);
+
+  useEffect(() => {
+    if (order.dishes === undefined) {
+      setDesability_send_kitchen(true);
+    } else {
+      if (order.dishes.length !== 0) {
+        let dishes_pending = order.dishes.filter(
+          (dish) => dish.state === "pending"
+        );
+        setDesability_send_kitchen(dishes_pending > 0);
+      } else {
+        setDesability_send_kitchen(true);
+      }
+      console.log(desability_send_kitchen);
+    }
+  }, [orders]);
 
   // Eliminación de un item de la comanda
   const [popDishToOrder] = useMutation(REMOVE_ITEM);
@@ -339,7 +357,11 @@ const Order = ({
           </Box>
         </Grid>
 
-        <OrderFooter sendKitchen={sendKitchen} bill={bill} />
+        <OrderFooter
+          sendKitchen={sendKitchen}
+          bill={bill}
+          desability_send_kitchen={desability_send_kitchen}
+        />
       </Grid>
     </div>
   );

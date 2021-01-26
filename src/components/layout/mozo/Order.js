@@ -34,6 +34,7 @@ import {
   DISHES_PREPARING,
   DISH_DELIVERED,
   DISH_READY,
+  CLOSE_ORDER,
 } from "../../../services/Mutations";
 import { useHistory } from "react-router-dom";
 
@@ -51,7 +52,7 @@ const Order = ({
   dishesPreparing,
   changeDishDelivered,
   changeDishReady,
-  closeOrder,
+  billOrder,
 }) => {
   const history = useHistory();
 
@@ -197,15 +198,29 @@ const Order = ({
     }
   };
 
-  const bill = () => {
+  // Checked de entrega
+  const [closeOrder] = useMutation(CLOSE_ORDER);
+  const bill = async () => {
     let items = order.dishes.length;
     let total_delivered = order.dishes.filter(
       (dish) => dish.state === "delivered"
     ).length;
     if (items === total_delivered && items > 0) {
-      billOrder(order._id);
+      let order_id = order._id;
+      billOrder(order_id);
       resetTable(order.table);
       history.push("/");
+      await closeOrder({
+        variables: {
+          order_id: order_id,
+        },
+      })
+        .then((result) => {
+          // let { order } = result.data.closeOrder
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       alert("Aun no se puede facturar");
     }

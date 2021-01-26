@@ -11,6 +11,7 @@ export const DISHES_READY_ORDER = "DISHES_READY_ORDER";
 export const DISH_DELIVERED = "DISH_DELIVERED";
 export const DISH_READY = "DISH_READY";
 
+// Consume desde la API las comandas
 export const fetchOrders = (orders) => {
   return {
     type: FETCH_ORDERS,
@@ -18,6 +19,7 @@ export const fetchOrders = (orders) => {
   };
 };
 
+// Agrega una comanda al store
 export const addOrder = (payload) => {
   return {
     type: ADD_ORDER,
@@ -25,6 +27,7 @@ export const addOrder = (payload) => {
   };
 };
 
+// Cierra una comanda
 export const billOrder = (payload) => {
   return {
     type: CLOSE_ORDER,
@@ -32,6 +35,7 @@ export const billOrder = (payload) => {
   };
 };
 
+// Elimina una comanda
 export const removeOrder = (order_id) => {
   return {
     type: REMOVE_ORDER,
@@ -39,6 +43,7 @@ export const removeOrder = (order_id) => {
   };
 };
 
+// Agrega un item a una comanda
 export const addItem = (item) => {
   return {
     type: ADD_ITEM,
@@ -46,6 +51,7 @@ export const addItem = (item) => {
   };
 };
 
+// Elimina un item a una comanda
 export const removeItem = (item) => {
   return {
     type: REMOVE_ITEM,
@@ -53,6 +59,7 @@ export const removeItem = (item) => {
   };
 };
 
+// Incrementa un item en una comanda
 export const incrementItem = (item) => {
   return {
     type: INCREMENT_ITEM,
@@ -60,6 +67,7 @@ export const incrementItem = (item) => {
   };
 };
 
+// Decrementa un item en una comanda
 export const decrementItem = (item) => {
   return {
     type: DECREMENT_ITEM,
@@ -67,6 +75,7 @@ export const decrementItem = (item) => {
   };
 };
 
+// Cambia el estado de los platos que se envian a cocina
 export const dishesPreparingToOrder = (payload) => {
   return {
     type: DISHES_PREPARING_ORDER,
@@ -74,6 +83,7 @@ export const dishesPreparingToOrder = (payload) => {
   };
 };
 
+// Cambia el estado de los platos que estan listos
 export const dishesReadyToOrder = (payload) => {
   return {
     type: DISHES_READY_ORDER,
@@ -81,12 +91,15 @@ export const dishesReadyToOrder = (payload) => {
   };
 };
 
+// Cambia el estado de un item entregado
 export const changeDishDelivered = (payload) => {
   return {
     type: DISH_DELIVERED,
     payload,
   };
 };
+
+// Cambia el estado de un item que esta listo
 export const changeDishReady = (payload) => {
   return {
     type: DISH_READY,

@@ -1,6 +1,8 @@
 import { gql } from "apollo-boost";
 
-// creacion de la consulta
+/*
+  Mutation para crear una comanda
+*/
 export const CREATE_ORDER = gql`
   # definición de la mutación
   mutation CreateOrder($table: Int!) {
@@ -16,7 +18,9 @@ export const CREATE_ORDER = gql`
   }
 `;
 
-// creacion de la consulta
+/*
+  Mutation para agregar un item a una comanda
+*/
 export const ADD_ITEM = gql`
   # definición de la mutación
   mutation AddDishToOrder($order_id: ID!, $dish_id: ID!) {
@@ -34,6 +38,9 @@ export const ADD_ITEM = gql`
   }
 `;
 
+/*
+  Mutation para eliminar un item a una comanda
+*/
 export const REMOVE_ITEM = gql`
   # definición de la mutación
   mutation PopDishToOrder($order_id: ID!, $dish_id: ID!) {
@@ -46,6 +53,9 @@ export const REMOVE_ITEM = gql`
   }
 `;
 
+/*
+  Mutation para incrementar la cantidad de un item a una comanda
+*/
 export const INCREMENT_ITEM = gql`
   # definición de la mutación
   mutation IncrementDishToOrder($order_id: ID!, $dish_id: ID!) {
@@ -59,6 +69,9 @@ export const INCREMENT_ITEM = gql`
   }
 `;
 
+/*
+  Mutation para decrementar la cantidad de un item a una comanda
+*/
 export const DECREMENT_ITEM = gql`
   # definición de la mutación
   mutation IncrementDishToOrder($order_id: ID!, $dish_id: ID!) {
@@ -72,6 +85,9 @@ export const DECREMENT_ITEM = gql`
   }
 `;
 
+/*
+  Mutation para eliminar una comanda
+*/
 export const REMOVE_ORDER = gql`
   # definición de la mutación
   mutation DeleteOrder($order_id: ID!) {
@@ -83,6 +99,9 @@ export const REMOVE_ORDER = gql`
   }
 `;
 
+/*
+  Mutation para cerrar una comanda
+*/
 export const CLOSE_ORDER = gql`
   # definición de la mutación
   mutation CloseOrder($order_id: ID!) {
@@ -94,6 +113,9 @@ export const CLOSE_ORDER = gql`
   }
 `;
 
+/*
+  Mutation para enviar a cocina los items pendientes de una comanda
+*/
 export const DISHES_PREPARING = gql`
   # definición de la mutación
   mutation DishPreparingToOrder($order_id: ID!, $dishes: [ID]) {
@@ -106,6 +128,9 @@ export const DISHES_PREPARING = gql`
   }
 `;
 
+/*
+  Mutation para cambiar el estado de los platos que estan listos
+*/
 export const DISHES_READY = gql`
   # definición de la mutación
   mutation DishReadyToOrder($order_id: ID!, $dishes: [ID]) {
@@ -118,6 +143,9 @@ export const DISHES_READY = gql`
   }
 `;
 
+/*
+  Mutation para cambiar el estado de un item entregado
+*/
 export const DISH_DELIVERED = gql`
   # definición de la mutación
   mutation DishDelivered($order_id: ID!, $dish_id: ID!) {
@@ -130,6 +158,10 @@ export const DISH_DELIVERED = gql`
     }
   }
 `;
+
+/*
+  Mutation para cambiar el estado de un item listo
+*/
 export const DISH_READY = gql`
   # definición de la mutación
   mutation DishReady($order_id: ID!, $dish_id: ID!) {

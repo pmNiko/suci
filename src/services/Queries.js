@@ -1,6 +1,8 @@
 import { gql } from "apollo-boost";
 
-// query "dishes" a la api de GraphQL
+/*
+  Esta Query trae los platos desde la API GraphQL
+*/
 export const GET_DISHES = gql`
   {
     dishes {
@@ -12,7 +14,9 @@ export const GET_DISHES = gql`
   }
 `;
 
-// query "orders" a la api de GraphQL
+/*
+  Esta Query trae las comandas desde la API GraphQL
+*/
 export const GET_ORDERS = gql`
   {
     orders {
@@ -34,6 +38,9 @@ export const GET_ORDERS = gql`
   }
 `;
 
+/*
+  Esta Query trae las mesas desde la API GraphQL
+*/
 export const GET_TABLES = gql`
   {
     tables {

@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/*
+  Componente para las acciones generales de la comanda
+*/
 const MenuFooter = ({
   sendKitchen,
   bill,

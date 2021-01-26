@@ -8,6 +8,9 @@ import { GET_TABLES } from "../../../services/Queries";
 
 import Table from "./Table";
 
+/*
+  Componente encargado de mostrar las mesas
+*/
 const Tables = ({ fetchTables, tables }) => {
   const { loading, error, data } = useQuery(GET_TABLES);
 

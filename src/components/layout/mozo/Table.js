@@ -55,13 +55,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/*
+  Componente de mesa
+*/
 const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
   let order_id_param = order;
   const classes = useStyles();
 
   // instaciamos la mutación que vamos a utilizar
   const [createOrder] = useMutation(CREATE_ORDER);
-
+  // usamos history para redireccionar al usuario
   const history = useHistory();
 
   const send = async () => {
@@ -85,6 +88,10 @@ const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
       history.push(`/mozo/${order_id_param}`);
     }
   };
+
+  /*
+    Render de la vista de la mesa
+  */
   return (
     <Box marginTop={10}>
       <Grid Item>

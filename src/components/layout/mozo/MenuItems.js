@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { ADD_ITEM } from "../../../services/Mutations";
 import { useParams } from "react-router-dom";
 
-// ----- Componente encargado de mostrar los items -----
+// ----- Componente encargado de mostrar los items ----- //
 const MenuItems = ({ dishes, add }) => {
   const { order_id_param } = useParams();
   const order_id = order_id_param;

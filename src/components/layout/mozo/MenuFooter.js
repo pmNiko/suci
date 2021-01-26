@@ -13,7 +13,9 @@ const useStyles = makeStyles({
     width: 700,
   },
 });
-
+/*
+  Componente para el filtrado de categorias del menu
+*/
 // El componente recibe el setter y guetter de filtro
 const MenuFooter = ({ setCategory, category }) => {
   const classes = useStyles();

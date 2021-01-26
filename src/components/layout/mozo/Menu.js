@@ -15,8 +15,7 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-//----- Componente de Menu padre ------ //
-
+//----- Componente de Menu ------ //
 const Menu = () => {
   // stado para el manejo de category
   const [category, setCategory] = useState("Rapidas");

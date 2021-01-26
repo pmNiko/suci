@@ -56,8 +56,12 @@ const Order = ({
 }) => {
   const history = useHistory();
 
+  // Recupera el id de la comanda que llega por parametro para filtrar
+  // la comanda a gestionar.
   const { order_id_param } = useParams();
   const order = orders.filter((order) => order._id === order_id_param)[0];
+
+  // Estados de los botones facturar y ordenar -> useEffect
   const [desability_bill, setDesability_bill] = useState(true);
   const [desability_send_kitchen, setDesability_send_kitchen] = useState(true);
 
@@ -93,7 +97,7 @@ const Order = ({
     }
   }, [orders]);
 
-  // Eliminación de un item de la comanda
+  // Eliminación de un plato de la comanda
   const [popDishToOrder] = useMutation(REMOVE_ITEM);
 
   const removeDish = async (item, order_id) => {
@@ -112,7 +116,7 @@ const Order = ({
         console.log(error);
       });
   };
-  // Incrementa la cantidad de un item de la comanda
+  // Incrementa la cantidad de un item de un plato
   const [incrementDishToOrder] = useMutation(INCREMENT_ITEM);
 
   const incrementDish = async (item, order_id) => {
@@ -131,7 +135,7 @@ const Order = ({
         console.log(error);
       });
   };
-  // Decrementa la cantidad de un item de la comanda
+  // Decrementa la cantidad de un item de un plato
   const [decrementDishToOrder] = useMutation(DECREMENT_ITEM);
 
   const decrementDish = async (item, order_id) => {
@@ -171,7 +175,7 @@ const Order = ({
       });
   };
 
-  // Cambia el estado de los items a ready
+  // Cambia el estado de los platos y los envia a cocina
   const [dishPreparingToOrder] = useMutation(DISHES_PREPARING);
   const sendKitchen = async () => {
     let order_id = order._id;
@@ -195,7 +199,7 @@ const Order = ({
       });
   };
 
-  // Checked de entrega
+  // Checked de entrega. Gestiona la entrega de platos
   const [dishDelivered] = useMutation(DISH_DELIVERED);
   const [dishReady] = useMutation(DISH_READY);
 
@@ -232,7 +236,7 @@ const Order = ({
     }
   };
 
-  // Checked de entrega
+  // Gestiona el cierre de la comanda
   const [closeOrder] = useMutation(CLOSE_ORDER);
   const bill = async () => {
     let items = order.dishes.length;
@@ -260,6 +264,9 @@ const Order = ({
     }
   };
 
+  /*
+    Componente de comanda 
+  */
   return (
     <div>
       <Grid container spacing={1} justify="center">

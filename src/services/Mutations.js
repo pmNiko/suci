@@ -106,3 +106,28 @@ export const DISHES_READY = gql`
     }
   }
 `;
+
+export const DISH_DELIVERED = gql`
+  # definición de la mutación
+  mutation DishDelivered($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    dishDelivered(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+        count
+      }
+    }
+  }
+`;
+export const DISH_READY = gql`
+  # definición de la mutación
+  mutation DishReady($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    dishReady(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+        count
+      }
+    }
+  }
+`;

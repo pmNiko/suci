@@ -19,8 +19,8 @@ import {
   decrementItem,
   removeOrder,
   dishesPreparingToOrder,
-  dishDelivered,
-  dishReady,
+  changeDishDelivered,
+  changeDishReady,
 } from "../../../redux/actions/orderAction";
 import { resetTable } from "../../../redux/actions/tableAction";
 // consulta a la  API Graphql
@@ -31,6 +31,8 @@ import {
   DECREMENT_ITEM,
   REMOVE_ORDER,
   DISHES_PREPARING,
+  DISH_DELIVERED,
+  DISH_READY,
 } from "../../../services/Mutations";
 import { useHistory } from "react-router-dom";
 
@@ -46,17 +48,9 @@ const Order = ({
   removeOrder,
   resetTable,
   dishesPreparing,
-  dishDelivered,
-  dishReady,
+  changeDishDelivered,
+  changeDishReady,
 }) => {
-  const onTable = (order_id, dish) => {
-    let dish_id = dish._id;
-    if (dish.state === "ready") {
-      dishDelivered({ order_id, dish_id });
-    } else {
-      dishReady({ order_id, dish_id });
-    }
-  };
   const history = useHistory();
 
   const { order_id_param } = useParams();
@@ -162,6 +156,43 @@ const Order = ({
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  // Checked de entrega
+  const [dishDelivered] = useMutation(DISH_DELIVERED);
+  const [dishReady] = useMutation(DISH_READY);
+
+  const onTable = async (order_id, dish) => {
+    let dish_id = dish._id;
+    if (dish.state === "ready") {
+      changeDishDelivered({ order_id, dish_id });
+      await dishDelivered({
+        variables: {
+          order_id: order_id,
+          dish_id: dish_id,
+        },
+      })
+        .then((result) => {
+          let { order } = result.data.dishDelivered;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      changeDishReady({ order_id, dish_id });
+      await dishReady({
+        variables: {
+          order_id: order_id,
+          dish_id: dish_id,
+        },
+      })
+        .then((result) => {
+          let { order } = result.data.dishReady;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -297,8 +328,8 @@ const mapDispatchToProps = (dispatch) => {
     removeOrder: (order_id) => dispatch(removeOrder(order_id)),
     resetTable: (number) => dispatch(resetTable(number)),
     dishesPreparing: (payload) => dispatch(dishesPreparingToOrder(payload)),
-    dishDelivered: (payload) => dispatch(dishDelivered(payload)),
-    dishReady: (payload) => dispatch(dishReady(payload)),
+    changeDishDelivered: (payload) => dispatch(changeDishDelivered(payload)),
+    changeDishReady: (payload) => dispatch(changeDishReady(payload)),
   };
 };
 

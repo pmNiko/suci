@@ -81,13 +81,13 @@ export const dishesReadyToOrder = (payload) => {
   };
 };
 
-export const dishDelivered = (payload) => {
+export const changeDishDelivered = (payload) => {
   return {
     type: DISH_DELIVERED,
     payload,
   };
 };
-export const dishReady = (payload) => {
+export const changeDishReady = (payload) => {
   return {
     type: DISH_READY,
     payload,

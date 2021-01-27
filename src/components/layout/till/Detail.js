@@ -24,35 +24,37 @@ function priceRow(qty, unit) {
   return qty * unit;
 }
 
-function createRow(desc, qty, unit) {
-  const price = priceRow(qty, unit);
-  return { desc, qty, unit, price };
-}
-
 function subtotal(items) {
-  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+  let subtotal = 0;
+  items.map((item) => {
+    subtotal += priceRow(item.price, item.count);
+  });
+  return subtotal;
 }
 
-const rows = [
-  createRow("Pizza napolitana", 1, 450.64),
-  createRow("Cenveza", 4, 250.52),
-  createRow("Torta Selva Negra", 4, 165.78),
-];
-
-const invoiceSubtotal = subtotal(rows);
-const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
-const Detail = () => {
+const Detail = ({ order }) => {
+  const invoiceSubtotal = subtotal(order.dishes);
+  const invoiceTaxes = TAX_RATE * invoiceSubtotal;
+  const invoiceTotal = invoiceSubtotal - invoiceTaxes;
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
         <TableHead>
           <TableRow>
-            <TableCell align="center" colSpan={3}>
+            <TableCell align="center" colSpan={4}>
               FACTURA
             </TableCell>
+            <TableCell align="center" colSpan={4}>
+              {order.number}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell align="center" colSpan={2}>
+              Mesa Nº {order.table}
+            </TableCell>
+            <TableCell align="right">Fecha: {order.date}</TableCell>
+            <TableCell align="right">Hora: {order.time}</TableCell>
             <TableCell align="right">Precio</TableCell>
           </TableRow>
           <TableRow>
@@ -63,12 +65,14 @@ const Detail = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.desc}>
-              <TableCell>{row.desc}</TableCell>
-              <TableCell align="center">{row.qty}</TableCell>
-              <TableCell align="right">{row.unit}</TableCell>
-              <TableCell align="right">{ccyFormat(row.price)}</TableCell>
+          {order.dishes.map(({ _id, name, count, price }) => (
+            <TableRow key={_id}>
+              <TableCell>{name}</TableCell>
+              <TableCell align="center">{count}</TableCell>
+              <TableCell align="right">{ccyFormat(price)}</TableCell>
+              <TableCell align="right">
+                {ccyFormat(priceRow(price, count))}
+              </TableCell>
             </TableRow>
           ))}
 
@@ -85,7 +89,7 @@ const Detail = () => {
             <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell colSpan={2}>Total</TableCell>
+            <TableCell colSpan={3}>Total</TableCell>
             <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
           </TableRow>
         </TableBody>

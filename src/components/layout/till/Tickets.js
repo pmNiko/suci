@@ -9,45 +9,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
-const columns = [
-  { id: "code", label: "Item", minWidth: 80 },
-  { id: "number", label: "Numero", minWidth: 200 },
-  {
-    id: "table",
-    label: "Mesa",
-    minWidth: 100,
-    align: "center",
-  },
-  {
-    id: "state",
-    label: "Estado",
-    minWidth: 200,
-    align: "center",
-  },
-];
-
-function createData(code, number, table, state) {
-  return { code, number, table, state };
-}
-
-const rows = [
-  createData(2, "ORD-000000", 4, "Impaga"),
-  createData(3, "ORD-000001", 3, "Pagada"),
-  createData(4, "ORD-000002", 5, "Impaga"),
-  createData(5, "ORD-000003", 9, "Impaga"),
-  createData(6, "ORD-000004", 6, "Pagada"),
-  createData(7, "ORD-000005", 7, "Impaga"),
-  createData(8, "ORD-000006", 0, "Impaga"),
-  createData(9, "ORD-000007", 8, "Impaga"),
-  createData(10, "ORD-000008", 2, "Pagada"),
-  createData(11, "ORD-000009", 4, "Pagada"),
-  createData(12, "ORD-0000010", 3, "Pagada"),
-  createData(13, "ORD-0000011", 4, "Impaga"),
-  createData(14, "ORD-0000012", 3, "Pagada"),
-  createData(15, "ORD-0000013", 5, "Impaga"),
-  createData(16, "ORD-0000014", 9, "Impaga"),
-];
-
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -57,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Tickets = () => {
+const Tickets = ({ orders }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -76,49 +37,72 @@ const Tickets = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
+              <TableCell align="center">Nº</TableCell>
+              <TableCell align="center">Comanda</TableCell>
+              <TableCell align="center">Mesa</TableCell>
+              <TableCell align="center">Estado</TableCell>
+              <TableCell align="center">Pagada</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {orders
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          onClick={() => {
-                            alert(row.number);
-                          }}
-                        >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+              .map((order, index) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                  <TableCell
+                    key={order._id}
+                    align="center"
+                    onClick={() => {
+                      alert(index);
+                    }}
+                  >
+                    {index}
+                  </TableCell>
+                  <TableCell
+                    key={order._id}
+                    align="center"
+                    onClick={() => {
+                      alert(index);
+                    }}
+                  >
+                    {order.number}
+                  </TableCell>
+                  <TableCell
+                    key={order._id}
+                    align="center"
+                    onClick={() => {
+                      alert(index);
+                    }}
+                  >
+                    {order.table}
+                  </TableCell>
+                  <TableCell
+                    key={order._id}
+                    align="center"
+                    onClick={() => {
+                      alert(index);
+                    }}
+                  >
+                    {order.closed ? "Cerrada" : "Abierta"}
+                  </TableCell>
+                  <TableCell
+                    key={order._id}
+                    align="center"
+                    onClick={() => {
+                      alert(index);
+                    }}
+                  >
+                    {order.paid ? "Si" : "No"}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={orders.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

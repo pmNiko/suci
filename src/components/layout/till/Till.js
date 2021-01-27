@@ -6,23 +6,18 @@ import { connect } from "react-redux";
 
 const Till = ({ orders }) => {
   const [detail, setDetail] = useState("");
-  let order = [];
-  order = orders[0];
 
-  useEffect(() => {
-    order = orders.filter((order) => order._id === detail);
-  }, [detail]);
   return (
     <>
       <Grid container>
         <Grid item md={5}>
           <Box m={3} marginTop={8}>
-            <Tickets orders={orders} />
+            <Tickets orders={orders} setDetail={setDetail} />
           </Box>
         </Grid>
         <Grid item md={7}>
           <Box m={3} marginTop={8}>
-            <Detail order={order} />
+            <Detail orders={orders} detail={detail} />
           </Box>
         </Grid>
       </Grid>

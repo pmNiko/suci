@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -32,7 +32,12 @@ function subtotal(items) {
   return subtotal;
 }
 
-const Detail = ({ order }) => {
+const Detail = ({ orders, detail }) => {
+  let order = orders[0];
+  if (detail !== undefined && detail !== "") {
+    order = orders.filter((order) => order._id === detail)[0];
+  }
+
   const invoiceSubtotal = subtotal(order.dishes);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceSubtotal - invoiceTaxes;

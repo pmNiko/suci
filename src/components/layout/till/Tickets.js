@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import Detail from "./Detail";
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Tickets = ({ orders }) => {
+const Tickets = ({ orders, setDetail }) => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -30,6 +31,10 @@ const Tickets = ({ orders }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const detailFilter = (order_id) => {
+    setDetail(order_id);
   };
   return (
     <Paper className={classes.root}>
@@ -48,50 +53,28 @@ const Tickets = ({ orders }) => {
             {orders
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((order, index) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                  <TableCell
-                    key={order._id}
-                    align="center"
-                    onClick={() => {
-                      alert(index);
-                    }}
-                  >
+                <TableRow
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={index}
+                  onClick={() => {
+                    detailFilter(order._id);
+                  }}
+                >
+                  <TableCell key={order._id} align="center">
                     {index}
                   </TableCell>
-                  <TableCell
-                    key={order._id}
-                    align="center"
-                    onClick={() => {
-                      alert(index);
-                    }}
-                  >
+                  <TableCell key={order._id} align="center">
                     {order.number}
                   </TableCell>
-                  <TableCell
-                    key={order._id}
-                    align="center"
-                    onClick={() => {
-                      alert(index);
-                    }}
-                  >
+                  <TableCell key={order._id} align="center">
                     {order.table}
                   </TableCell>
-                  <TableCell
-                    key={order._id}
-                    align="center"
-                    onClick={() => {
-                      alert(index);
-                    }}
-                  >
+                  <TableCell key={order._id} align="center">
                     {order.closed ? "Cerrada" : "Abierta"}
                   </TableCell>
-                  <TableCell
-                    key={order._id}
-                    align="center"
-                    onClick={() => {
-                      alert(index);
-                    }}
-                  >
+                  <TableCell key={order._id} align="center">
                     {order.paid ? "Si" : "No"}
                   </TableCell>
                 </TableRow>

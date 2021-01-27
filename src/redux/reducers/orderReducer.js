@@ -3,6 +3,7 @@ import {
   ADD_ORDER,
   CLOSE_ORDER,
   REMOVE_ORDER,
+  PAY_ORDER,
   ADD_ITEM,
   REMOVE_ITEM,
   INCREMENT_ITEM,
@@ -44,6 +45,18 @@ export function order(state = initialState, action) {
       return {
         orders: [
           ...state.orders.filter((order) => order._id === action.payload),
+        ],
+      };
+
+    case PAY_ORDER:
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload) {
+              order.paid = !order.paid;
+            }
+            return order;
+          }),
         ],
       };
 

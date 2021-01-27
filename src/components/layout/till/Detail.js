@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import PaymentIcon from "@material-ui/icons/Payment";
+import { connect } from "react-redux";
+import { pay } from "../../../redux/actions/orderAction";
 
 const TAX_RATE = 0.07;
 
@@ -33,11 +35,15 @@ function subtotal(items) {
   return subtotal;
 }
 
-const Detail = ({ order }) => {
+const Detail = ({ order, pay }) => {
+  const classes = useStyles();
   const invoiceSubtotal = subtotal(order.dishes);
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceSubtotal - invoiceTaxes;
-  const classes = useStyles();
+
+  const checkIn = () => {
+    pay(order._id);
+  };
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
@@ -99,7 +105,7 @@ const Detail = ({ order }) => {
                 color="secondary"
                 className={classes.button}
                 onClick={() => {
-                  alert("cobrar");
+                  checkIn();
                 }}
                 startIcon={<PaymentIcon />}
                 fullWidth
@@ -114,4 +120,10 @@ const Detail = ({ order }) => {
   );
 };
 
-export default Detail;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    pay: (item) => dispatch(pay(item)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Detail);

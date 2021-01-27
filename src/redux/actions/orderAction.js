@@ -2,6 +2,7 @@ export const FETCH_ORDERS = "FETCH_ORDERS";
 export const ADD_ORDER = "ADD_ORDER";
 export const CLOSE_ORDER = "CLOSE_ORDER";
 export const REMOVE_ORDER = "REMOVE_ORDER";
+export const PAY_ORDER = "PAY_ORDER";
 export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export const INCREMENT_ITEM = "INCREMENT_ITEM";
@@ -103,6 +104,14 @@ export const changeDishDelivered = (payload) => {
 export const changeDishReady = (payload) => {
   return {
     type: DISH_READY,
+    payload,
+  };
+};
+
+// Cambia el estado de una comanda a pagada en true
+export const pay = (payload) => {
+  return {
+    type: PAY_ORDER,
     payload,
   };
 };

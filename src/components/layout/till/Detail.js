@@ -1,12 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
+import { Table, Button } from "@material-ui/core/";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import PaymentIcon from "@material-ui/icons/Payment";
 
 const TAX_RATE = 0.07;
 
@@ -42,20 +43,18 @@ const Detail = ({ order }) => {
       <Table className={classes.table} aria-label="spanning table">
         <TableHead>
           <TableRow>
-            <TableCell align="center" colSpan={4}>
+            <TableCell align="center" colSpan={5}>
               FACTURA
-            </TableCell>
-            <TableCell align="center" colSpan={4}>
-              {order.number}
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell align="center" colSpan={2}>
-              Mesa Nº {order.table}
-            </TableCell>
+            <TableCell align="center">{order.number}</TableCell>
+            <TableCell align="center">Mesa Nº {order.table}</TableCell>
             <TableCell align="right">Fecha: {order.date}</TableCell>
             <TableCell align="right">Hora: {order.time}</TableCell>
-            <TableCell align="right">Precio</TableCell>
+            <TableCell align="right" colSpan={3}>
+              Precio
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Item</TableCell>
@@ -91,6 +90,23 @@ const Detail = ({ order }) => {
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={5}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="secondary"
+                className={classes.button}
+                onClick={() => {
+                  alert("cobrar");
+                }}
+                startIcon={<PaymentIcon />}
+                fullWidth
+              >
+                COBRAR FACTURA
+              </Button>
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

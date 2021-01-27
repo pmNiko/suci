@@ -114,6 +114,20 @@ export const CLOSE_ORDER = gql`
 `;
 
 /*
+  Mutation para pagar una comanda
+*/
+export const PAY_ORDER = gql`
+  # definición de la mutación
+  mutation PayOrder($order_id: ID!) {
+    # ejecución de la mutación
+    payOrder(order_id: $order_id) {
+      _id
+      paid
+    }
+  }
+`;
+
+/*
   Mutation para enviar a cocina los items pendientes de una comanda
 */
 export const DISHES_PREPARING = gql`

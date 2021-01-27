@@ -10,6 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import PaymentIcon from "@material-ui/icons/Payment";
 import { connect } from "react-redux";
 import { pay } from "../../../redux/actions/orderAction";
+// consulta a la  API Graphql
+import { useMutation } from "@apollo/react-hooks";
+import { PAY_ORDER } from "../../../services/Mutations";
 
 const TAX_RATE = 0.07;
 
@@ -41,9 +44,23 @@ const Detail = ({ order, pay }) => {
   const invoiceTaxes = TAX_RATE * invoiceSubtotal;
   const invoiceTotal = invoiceSubtotal - invoiceTaxes;
 
-  const checkIn = () => {
+  // Gestiona el cierre de la comanda
+  const [payOrder] = useMutation(PAY_ORDER);
+  const checkIn = async () => {
     pay(order._id);
+    await payOrder({
+      variables: {
+        order_id: order._id,
+      },
+    })
+      .then((result) => {
+        // let { order } = result.data.payOrder
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="spanning table">
@@ -104,6 +121,7 @@ const Detail = ({ order, pay }) => {
                 size="small"
                 color="secondary"
                 className={classes.button}
+                disabled={order.paid}
                 onClick={() => {
                   checkIn();
                 }}

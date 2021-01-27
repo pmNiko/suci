@@ -26,6 +26,7 @@ export const GET_ORDERS = gql`
       time
       table
       closed
+      paid
       dishes {
         _id
         name

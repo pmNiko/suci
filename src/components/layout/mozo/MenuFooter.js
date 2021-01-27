@@ -10,7 +10,7 @@ import FreeBreakfastIcon from "@material-ui/icons/FreeBreakfast";
 
 const useStyles = makeStyles({
   root: {
-    width: 700,
+    width: 500,
   },
 });
 /*

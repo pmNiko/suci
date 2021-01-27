@@ -29,7 +29,7 @@ const Menu = () => {
 
   const classes = useStyle();
   return (
-    <Grid container md={12}>
+    <Grid container md={12} justify="center">
       <Grid item md={12}>
         <Box m={3}>
           <Grid
@@ -43,19 +43,6 @@ const Menu = () => {
           </Grid>
         </Box>
         <Divider />
-      </Grid>
-      <Grid item md={12}>
-        <Box m={3}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-          >
-            <Typography>Item </Typography>
-            <Typography>Acción</Typography>
-          </Grid>
-        </Box>
         {!loading && <MenuItems dishes={dishes} />}
       </Grid>
       <Grid item md={12}>

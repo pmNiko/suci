@@ -18,6 +18,7 @@ const Tables = ({ fetchTables, tables }) => {
     if (!loading) {
       fetchTables(data.tables);
     }
+    console.log(tables);
   }, [loading]);
 
   return (

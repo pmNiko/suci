@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Box } from "@material-ui/core/";
+import { Grid, Typography, Box, Paper } from "@material-ui/core/";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { addItem } from "../../../redux/actions/orderAction";
@@ -34,28 +34,36 @@ const MenuItems = ({ dishes, add }) => {
   };
 
   return (
-    <Grid item md={12}>
-      {dishes.map((item) => (
-        <Box m={3}>
-          <Grid
-            container
-            key={item._id}
-            direction="row"
-            justify="space-between"
-          >
-            <Typography>{item.name}</Typography>
-            <Typography>{item.price}</Typography>
-            <Button
-              variant="text"
-              color="primary"
-              onClick={() => addDish(item._id)}
+    <Paper style={{ height: 300, overflow: "auto" }}>
+      <Grid item md={12}>
+        {dishes.map((item) => (
+          <Box m={3}>
+            <Grid
+              container
+              key={item._id}
+              direction="row"
+              justify="space-between"
             >
-              Agregar
-            </Button>
-          </Grid>
-        </Box>
-      ))}
-    </Grid>
+              <Box style={{ width: 100 }}>
+                <Typography>{item.name}</Typography>
+              </Box>
+              <Box style={{ width: 50 }}>
+                <Typography>{item.price}</Typography>
+              </Box>
+              <Box>
+                <Button
+                  variant="text"
+                  color="primary"
+                  onClick={() => addDish(item._id)}
+                >
+                  Agregar
+                </Button>
+              </Box>
+            </Grid>
+          </Box>
+        ))}
+      </Grid>
+    </Paper>
   );
 };
 

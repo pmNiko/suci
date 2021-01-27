@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Box } from "@material-ui/core/";
 import Tickets from "./Tickets";
 import Detail from "./Detail";
@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 
 const Till = ({ orders }) => {
   const [detail, setDetail] = useState("");
-
+  let order = orders[0];
+  if (detail !== undefined && detail !== "") {
+    order = orders.filter((order) => order._id === detail)[0];
+  }
   return (
     <>
       <Grid container>
@@ -17,7 +20,7 @@ const Till = ({ orders }) => {
         </Grid>
         <Grid item md={7}>
           <Box m={3} marginTop={8}>
-            <Detail orders={orders} detail={detail} />
+            <Detail order={order} />
           </Box>
         </Grid>
       </Grid>

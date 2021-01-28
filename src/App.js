@@ -23,10 +23,13 @@ function App({ fetchOrders }) {
   // consulta a partir del hook de apollo
   const { loading, error, data } = useQuery(GET_ORDERS);
 
-  // loading || console.log("App: ", data.orders);
   useEffect(() => {
     if (!loading) {
-      fetchOrders(data.orders);
+      if (data.orders.length > 0) {
+        // let orders = data.orders.filter((order) => order.closed === false);
+        // console.log(orders[0].number, orders[0].dishes[0].state);
+        fetchOrders(data.orders);
+      }
     }
   }, [loading]);
 

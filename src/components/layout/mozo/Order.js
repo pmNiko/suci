@@ -61,6 +61,9 @@ const Order = ({
   const { order_id_param } = useParams();
   const order = orders.filter((order) => order._id === order_id_param)[0];
 
+  // if (order.dishes.length != 0) {
+  //   console.log(order.number, order.dishes[0].state);
+  // }
   // Estados de los botones facturar y ordenar -> useEffect
   const [desability_bill, setDesability_bill] = useState(true);
   const [desability_send_kitchen, setDesability_send_kitchen] = useState(true);

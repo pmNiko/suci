@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -53,12 +53,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ComandaCard = ({ orders, close }) => {
+const ComandaCard = ({ orders }) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [idOrder, setIdOrder] = useState("");
 
-  const handleOpen = () => {
+  let order = orders[0];
+  if (idOrder !== undefined && idOrder !== "") {
+    order = orders.filter((order) => order._id === idOrder);
+  }
+  const handleOpen = (order_id) => {
+    setIdOrder(order_id);
     setOpen(true);
   };
 
@@ -71,7 +76,12 @@ const ComandaCard = ({ orders, close }) => {
       {orders !== undefined &&
         orders.map(({ date, time, table, _id, number, closed }, index) => (
           <Grid item key={_id}>
-            <Card className={classes.root} onClick={handleOpen}>
+            <Card
+              className={classes.root}
+              onClick={() => {
+                handleOpen(_id);
+              }}
+            >
               <CardContent>
                 <Typography
                   className={classes.title}
@@ -89,9 +99,6 @@ const ComandaCard = ({ orders, close }) => {
               </CardContent>
               <CardActions>
                 <Grid container className={classes.rowContainer}>
-                  <Button size="small" onClick={() => {}}>
-                    Ver
-                  </Button>
                   <Typography className={classes.semaforo}>
                     Cerrada: {closed.toString()}
                   </Typography>
@@ -114,7 +121,7 @@ const ComandaCard = ({ orders, close }) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <ContentCard {...orders[0]} />
+            <ContentCard order={order} />
           </div>
         </Fade>
       </Modal>

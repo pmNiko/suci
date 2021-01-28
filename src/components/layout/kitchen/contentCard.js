@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, Typography, Checkbox, Box, Button } from "@material-ui/core";
 
-export const ContentCard = ({ dishes }) => {
+export const ContentCard = ({ order }) => {
+  let dishes = order[0].dishes;
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = (event) => {

@@ -1,16 +1,21 @@
 import React from "react";
 import { Grid, Typography, Checkbox, Box, Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { changeDishReady } from "../../../redux/actions/orderAction";
+import {
+  changeDishReady,
+  changeDishPreaping,
+} from "../../../redux/actions/orderAction";
 
-export const ContentCard = ({ order, changeDishReady }) => {
+export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
   let dishes = order[0].dishes;
   let order_id = order[0]._id;
-  const [checked, setChecked] = React.useState(false);
 
-  const handleChange = (event, dish_id) => {
-    changeDishReady({ order_id, dish_id });
-    setChecked(event.target.checked);
+  const handleChange = (dish_id, state) => {
+    if (state === "preparing") {
+      changeDishReady({ order_id, dish_id });
+    } else {
+      changeDishPreaping({ order_id, dish_id });
+    }
   };
   return (
     <Box>
@@ -28,8 +33,8 @@ export const ContentCard = ({ order, changeDishReady }) => {
               {(state === "preparing" || state === "ready") && (
                 <Checkbox
                   checked={state !== "pending" && state !== "preparing"}
-                  onChange={(event) => {
-                    handleChange(event, _id);
+                  onChange={() => {
+                    handleChange(_id, state);
                   }}
                   color="primary"
                 />
@@ -48,6 +53,7 @@ export const ContentCard = ({ order, changeDishReady }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeDishReady: (payload) => dispatch(changeDishReady(payload)),
+    changeDishPreaping: (payload) => dispatch(changeDishPreaping(payload)),
   };
 };
 

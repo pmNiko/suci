@@ -11,6 +11,7 @@ export const DISHES_PREPARING_ORDER = "DISHES_PREPARING_ORDER";
 export const DISHES_READY_ORDER = "DISHES_READY_ORDER";
 export const DISH_DELIVERED = "DISH_DELIVERED";
 export const DISH_READY = "DISH_READY";
+export const DISH_PREPARING = "DISH_PREPARING";
 
 // Consume desde la API las comandas
 export const fetchOrders = (orders) => {
@@ -104,6 +105,14 @@ export const changeDishDelivered = (payload) => {
 export const changeDishReady = (payload) => {
   return {
     type: DISH_READY,
+    payload,
+  };
+};
+
+// Cambia el estado de un item que esta en preparación
+export const changeDishPreaping = (payload) => {
+  return {
+    type: DISH_PREPARING,
     payload,
   };
 };

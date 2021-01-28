@@ -12,6 +12,7 @@ import {
   DISHES_READY_ORDER,
   DISH_DELIVERED,
   DISH_READY,
+  DISH_PREPARING,
 } from "../actions/orderAction";
 
 // Estado inicial
@@ -181,6 +182,22 @@ export function order(state = initialState, action) {
               order.dishes.forEach((item) => {
                 if (item._id === action.payload.dish_id) {
                   item.state = "ready";
+                }
+              });
+            }
+            return order;
+          }),
+        ],
+      };
+
+    case DISH_PREPARING:
+      return {
+        orders: [
+          ...state.orders.map((order) => {
+            if (order._id === action.payload.order_id) {
+              order.dishes.forEach((item) => {
+                if (item._id === action.payload.dish_id) {
+                  item.state = "preparing";
                 }
               });
             }

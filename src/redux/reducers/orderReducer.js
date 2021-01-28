@@ -44,7 +44,7 @@ export function order(state = initialState, action) {
     case REMOVE_ORDER:
       return {
         orders: [
-          ...state.orders.filter((order) => order._id === action.payload),
+          ...state.orders.filter((order) => order._id !== action.payload),
         ],
       };
 

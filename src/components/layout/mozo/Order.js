@@ -61,9 +61,6 @@ const Order = ({
   const { order_id_param } = useParams();
   const order = orders.filter((order) => order._id === order_id_param)[0];
 
-  // if (order.dishes.length != 0) {
-  //   console.log(order.number, order.dishes[0].state);
-  // }
   // Estados de los botones facturar y ordenar -> useEffect
   const [desability_bill, setDesability_bill] = useState(true);
   const [desability_send_kitchen, setDesability_send_kitchen] = useState(true);
@@ -102,7 +99,6 @@ const Order = ({
 
   // Eliminación de un plato de la comanda
   const [popDishToOrder] = useMutation(REMOVE_ITEM);
-
   const removeDish = async (item, order_id) => {
     await popDishToOrder({
       variables: {
@@ -119,9 +115,9 @@ const Order = ({
         console.log(error);
       });
   };
+
   // Incrementa la cantidad de un item de un plato
   const [incrementDishToOrder] = useMutation(INCREMENT_ITEM);
-
   const incrementDish = async (item, order_id) => {
     await incrementDishToOrder({
       variables: {
@@ -138,9 +134,9 @@ const Order = ({
         console.log(error);
       });
   };
+
   // Decrementa la cantidad de un item de un plato
   const [decrementDishToOrder] = useMutation(DECREMENT_ITEM);
-
   const decrementDish = async (item, order_id) => {
     await decrementDishToOrder({
       variables: {
@@ -160,7 +156,6 @@ const Order = ({
 
   // Elimina la comanda
   const [deleteOrder] = useMutation(REMOVE_ORDER);
-
   const popOrder = async (order_id, table) => {
     await deleteOrder({
       variables: {
@@ -169,9 +164,9 @@ const Order = ({
     })
       .then((result) => {
         // let { order } = result.data.deleteOrder;
+        history.push("/floor");
         removeOrder(order_id);
         resetTable(table);
-        history.push("/floor");
       })
       .catch((error) => {
         console.log(error);
@@ -205,7 +200,6 @@ const Order = ({
   // Checked de entrega. Gestiona la entrega de platos
   const [dishDelivered] = useMutation(DISH_DELIVERED);
   const [dishReady] = useMutation(DISH_READY);
-
   const onTable = async (order_id, dish) => {
     let dish_id = dish._id;
     if (dish.state === "ready") {

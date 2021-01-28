@@ -188,3 +188,19 @@ export const DISH_READY = gql`
     }
   }
 `;
+
+/*
+  Mutation para cambiar el estado de un item en preparación
+*/
+export const DISH_PREPARING = gql`
+  # definición de la mutación
+  mutation DishPreparing($order_id: ID!, $dish_id: ID!) {
+    # ejecución de la mutación
+    dishPreparing(order_id: $order_id, dish_id: $dish_id) {
+      dishes {
+        _id
+        count
+      }
+    }
+  }
+`;

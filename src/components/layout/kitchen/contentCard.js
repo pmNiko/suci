@@ -5,18 +5,49 @@ import {
   changeDishReady,
   changeDishPreaping,
 } from "../../../redux/actions/orderAction";
+// consulta a la  API Graphql
+import { useMutation } from "@apollo/react-hooks";
+import { DISH_READY, DISH_PREPARING } from "../../../services/Mutations";
 
 export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
   let dishes = order[0].dishes;
   let order_id = order[0]._id;
 
-  const handleChange = (dish_id, state) => {
+  // Gestiona el cierre de la comanda
+  const [dishReady] = useMutation(DISH_READY);
+  const [dishPreaping] = useMutation(DISH_PREPARING);
+  const handleChange = async (dish_id, state) => {
     if (state === "preparing") {
       changeDishReady({ order_id, dish_id });
+      await dishReady({
+        variables: {
+          order_id: order._id,
+          dish_id: dish_id,
+        },
+      })
+        .then((result) => {
+          // let { order } = result.data.payOrder
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       changeDishPreaping({ order_id, dish_id });
+      await dishPreaping({
+        variables: {
+          order_id: order._id,
+          dish_id: dish_id,
+        },
+      })
+        .then((result) => {
+          // let { order } = result.data.payOrder
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
+
   return (
     <Box>
       <Grid container direction="column" alignItems="center">

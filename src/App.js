@@ -24,7 +24,7 @@ function App({ fetchOrders }) {
   const { loading, error, data } = useQuery(GET_ORDERS);
 
   useEffect(() => {
-    if (!loading) {
+    if (data) {
       if (data.orders.length > 0) {
         // let orders = data.orders.filter((order) => order.closed === false);
         // console.log(orders[0].number, orders[0].dishes[0].state);

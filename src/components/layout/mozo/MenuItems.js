@@ -34,17 +34,17 @@ const MenuItems = ({ dishes, add }) => {
   };
 
   return (
-    <Paper style={{ height: 300, overflow: "auto" }}>
+    <Paper style={{ height: 400, overflow: "auto" }}>
       <Grid item md={12}>
         {dishes.map((item) => (
-          <Box m={3}>
+          <Box m={3} border={0} borderRadius={10} boxShadow={3}>
             <Grid
               container
               key={item._id}
               direction="row"
               justify="space-between"
             >
-              <Box style={{ width: 100 }}>
+              <Box style={{ width: "30%" }}>
                 <Typography>{item.name}</Typography>
               </Box>
               <Box style={{ width: 50 }}>

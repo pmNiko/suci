@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 
 const Till = ({ orders }) => {
   const [detail, setDetail] = useState("");
+  let orders_closed = orders.filter((order) => order.closed);
   let order = orders[0];
   if (detail !== undefined && detail !== "") {
     order = orders.filter((order) => order._id === detail)[0];
@@ -15,7 +16,7 @@ const Till = ({ orders }) => {
       <Grid container>
         <Grid item md={5}>
           <Box m={3} marginTop={8}>
-            <Tickets orders={orders} setDetail={setDetail} />
+            <Tickets orders={orders_closed} setDetail={setDetail} />
           </Box>
         </Grid>
         <Grid item md={7}>

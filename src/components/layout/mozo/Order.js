@@ -266,7 +266,7 @@ const Order = ({
   */
   return (
     <div>
-      <Grid container spacing={1} justify="center">
+      <Grid container spacing={0} justify="center">
         <Grid item md={12}>
           <TableContainer>
             <Table aria-label="simple table">
@@ -292,7 +292,7 @@ const Order = ({
             </Table>
           </TableContainer>
         </Grid>
-        <Paper style={{ height: 300, width: "95%", overflow: "auto" }}>
+        <Paper style={{ height: 400, width: "95%", overflow: "auto" }}>
           <Grid item md={12}>
             <Box m={2} mb={3}>
               <TableContainer>

@@ -58,7 +58,7 @@ export const Navbar = () => {
           ))}
 
           <Button color="inherit" style={{ marginLeft: "50px" }}>
-            Login
+            {""}
           </Button>
         </Toolbar>
       </AppBar>

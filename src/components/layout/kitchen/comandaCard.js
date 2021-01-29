@@ -69,7 +69,6 @@ const ComandaCard = ({ orders }) => {
     if (order.dishes !== undefined) {
       let dishes = order.dishes;
       dishes_preparing = dishes.filter((dish) => dish.state === "preparing");
-      console.log(dishes_preparing.length);
     }
   }
 
@@ -123,7 +122,7 @@ const ComandaCard = ({ orders }) => {
               <CardActions>
                 <Grid container className={classes.rowContainer}>
                   <Typography className={classes.semaforo}>
-                    Cerrada: {closed.toString()}
+                    {closed ? "Cerrada" : "Abierta"}
                   </Typography>
                 </Grid>
               </CardActions>

@@ -15,7 +15,7 @@ const Tables = ({ fetchTables, tables }) => {
   const { loading, error, data } = useQuery(GET_TABLES);
 
   useEffect(() => {
-    if (!loading) {
+    if (data) {
       fetchTables(data.tables);
     }
   }, [loading]);

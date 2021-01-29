@@ -10,7 +10,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { DISH_READY, DISH_PREPARING } from "../../../services/Mutations";
 
 export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
-  let dishes = order[0].dishes;
+  let dishes = order[0].dishes.filter((dish) => dish.state !== "pending");
   let order_id = order[0]._id;
 
   // Gestiona el cierre de la comanda
@@ -50,7 +50,7 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
 
   return (
     <Grid container direction="column" alignItems="center">
-      {dishes.map(({ _id, name, state }, index) => (
+      {dishes.map(({ _id, name, state, count }, index) => (
         <Grid item>
           <Grid
             container
@@ -67,6 +67,16 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
                 }}
               >
                 {name}
+              </Typography>
+            </Box>
+            <Box style={{ width: 50 }}>
+              <Typography
+                style={{
+                  textDecorationLine:
+                    state === "delivered" ? "line-through" : "none",
+                }}
+              >
+                {count}
               </Typography>
             </Box>
             <Box style={{ width: 50 }}>

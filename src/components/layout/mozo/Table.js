@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Box } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
@@ -70,12 +71,11 @@ const Table = ({
   const classes = useStyles();
   let order_id_param = order;
   const order_obj = orders.filter((order) => order._id === order_id_param)[0];
-
+  let dishes_ready = [];
   if (order_obj !== undefined) {
     if (order_obj.dishes !== undefined) {
       let dishes = order_obj.dishes;
-      let dishes_ready = dishes.filter((dish) => dish.state === "ready");
-      console.log(dishes_ready.length);
+      dishes_ready = dishes.filter((dish) => dish.state === "ready");
     }
   }
 
@@ -121,6 +121,19 @@ const Table = ({
               <Typography variant="h5" component="h2">
                 {free ? "Libre" : "Ocupada"}
               </Typography>
+
+              {dishes_ready.length > 0 && (
+                <Avatar
+                  style={{
+                    width: 20,
+                    height: 20,
+                    color: "red",
+                    backgroundColor: "black",
+                  }}
+                >
+                  {dishes_ready.length}
+                </Avatar>
+              )}
             </CardContent>
           </Box>
           <Button

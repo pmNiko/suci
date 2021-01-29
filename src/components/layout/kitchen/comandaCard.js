@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -62,6 +63,16 @@ const ComandaCard = ({ orders }) => {
   if (idOrder !== undefined && idOrder !== "") {
     order = orders.filter((order) => order._id === idOrder);
   }
+
+  let dishes_preparing = [];
+  if (orders !== undefined) {
+    if (order.dishes !== undefined) {
+      let dishes = order.dishes;
+      dishes_preparing = dishes.filter((dish) => dish.state === "preparing");
+      console.log(dishes_preparing.length);
+    }
+  }
+
   const handleOpen = (order_id) => {
     setIdOrder(order_id);
     setOpen(true);
@@ -96,6 +107,18 @@ const ComandaCard = ({ orders }) => {
                 <Typography className={classes.pos} color="textSecondary">
                   Mesa: {table}
                 </Typography>
+                {dishes_preparing.length > 0 && (
+                  <Avatar
+                    style={{
+                      width: 20,
+                      height: 20,
+                      color: "red",
+                      backgroundColor: "black",
+                    }}
+                  >
+                    {dishes_preparing.length}
+                  </Avatar>
+                )}
               </CardContent>
               <CardActions>
                 <Grid container className={classes.rowContainer}>

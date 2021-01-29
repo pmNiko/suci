@@ -49,35 +49,30 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
   };
 
   return (
-    <Box>
-      <Grid container direction="column" alignItems="center">
-        {dishes.map(({ _id, name, state }, index) => (
-          <Grid item>
-            <Grid
-              container
-              key={index}
-              direction="row"
-              alignItems="center"
-              justify="space-between"
-            >
-              <Typography>{name}</Typography>
-              {(state === "preparing" || state === "ready") && (
-                <Checkbox
-                  checked={state !== "pending" && state !== "preparing"}
-                  onChange={() => {
-                    handleChange(_id, state);
-                  }}
-                  color="primary"
-                />
-              )}
-            </Grid>
+    <Grid container direction="column" alignItems="center">
+      {dishes.map(({ _id, name, state }, index) => (
+        <Grid item>
+          <Grid
+            container
+            key={index}
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Typography>{name}</Typography>
+            {(state === "preparing" || state === "ready") && (
+              <Checkbox
+                checked={state !== "pending" && state !== "preparing"}
+                onChange={() => {
+                  handleChange(_id, state);
+                }}
+                color="primary"
+              />
+            )}
           </Grid>
-        ))}
-      </Grid>
-      <Button variant="contained" color="primary" disableElevation>
-        Despachar
-      </Button>
-    </Box>
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

@@ -9,7 +9,7 @@ import store from "./redux/store";
 
 // Instanciamos el cliente de Apollo
 const client = new ApolloClient({
-  uri: "http://localhost:3600",
+  uri: "http://13de335f-c6f0-4042-aa08-38e3c58a078b.clouding.host:3600/",
 });
 
 ReactDOM.render(

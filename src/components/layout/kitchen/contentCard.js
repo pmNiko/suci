@@ -59,16 +59,27 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
             alignItems="center"
             justify="space-between"
           >
-            <Typography>{name}</Typography>
-            {(state === "preparing" || state === "ready") && (
-              <Checkbox
-                checked={state !== "pending" && state !== "preparing"}
-                onChange={() => {
-                  handleChange(_id, state);
+            <Box style={{ width: 200 }}>
+              <Typography
+                style={{
+                  textDecorationLine:
+                    state === "delivered" ? "line-through" : "none",
                 }}
-                color="primary"
-              />
-            )}
+              >
+                {name}
+              </Typography>
+            </Box>
+            <Box style={{ width: 50 }}>
+              {(state === "preparing" || state === "ready") && (
+                <Checkbox
+                  checked={state !== "pending" && state !== "preparing"}
+                  onChange={() => {
+                    handleChange(_id, state);
+                  }}
+                  color="primary"
+                />
+              )}
+            </Box>
           </Grid>
         </Grid>
       ))}

@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { Grid, Box } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
@@ -104,6 +105,17 @@ const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
               <Typography variant="h5" component="h2">
                 {free ? "Libre" : "Ocupada"}
               </Typography>
+
+              <Avatar
+                style={{
+                  width: 20,
+                  height: 20,
+                  color: "red",
+                  backgroundColor: "black",
+                }}
+              >
+                3
+              </Avatar>
             </CardContent>
           </Box>
           <Button

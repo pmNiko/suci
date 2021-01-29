@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -96,6 +97,16 @@ const ComandaCard = ({ orders }) => {
                 <Typography className={classes.pos} color="textSecondary">
                   Mesa: {table}
                 </Typography>
+                <Avatar
+                  style={{
+                    width: 20,
+                    height: 20,
+                    color: "red",
+                    backgroundColor: "black",
+                  }}
+                >
+                  3
+                </Avatar>
               </CardContent>
               <CardActions>
                 <Grid container className={classes.rowContainer}>

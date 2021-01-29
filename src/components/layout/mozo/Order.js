@@ -322,7 +322,7 @@ const Order = ({
                           {item.name}
                         </TableCell>
                         <TableCell component="th" scope="row" align="center">
-                          {item.state === "pending" && (
+                          {item.state === "pending" && item.count > 1 && (
                             <IconButton
                               aria-label="RemoveCircleOutlineIcon"
                               onClick={() => decrementDish(item, order._id)}

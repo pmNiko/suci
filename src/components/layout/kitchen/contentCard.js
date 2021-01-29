@@ -21,12 +21,12 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
       changeDishReady({ order_id, dish_id });
       await dishReady({
         variables: {
-          order_id: order._id,
+          order_id: order_id,
           dish_id: dish_id,
         },
       })
         .then((result) => {
-          // let { order } = result.data.payOrder
+          // let { order } = result.data.dishReady;
         })
         .catch((error) => {
           console.log(error);
@@ -35,7 +35,7 @@ export const ContentCard = ({ order, changeDishReady, changeDishPreaping }) => {
       changeDishPreaping({ order_id, dish_id });
       await dishPreaping({
         variables: {
-          order_id: order._id,
+          order_id: order_id,
           dish_id: dish_id,
         },
       })

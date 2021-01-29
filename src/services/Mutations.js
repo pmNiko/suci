@@ -181,9 +181,10 @@ export const DISH_READY = gql`
   mutation DishReady($order_id: ID!, $dish_id: ID!) {
     # ejecución de la mutación
     dishReady(order_id: $order_id, dish_id: $dish_id) {
+      _id
       dishes {
         _id
-        count
+        state
       }
     }
   }

@@ -58,9 +58,26 @@ const useStyles = makeStyles((theme) => ({
 /*
   Componente de mesa
 */
-const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
-  let order_id_param = order;
+const Table = ({
+  color,
+  number,
+  free,
+  order,
+  addOrder,
+  modifyTable,
+  orders,
+}) => {
   const classes = useStyles();
+  let order_id_param = order;
+  const order_obj = orders.filter((order) => order._id === order_id_param)[0];
+
+  if (order_obj !== undefined) {
+    if (order_obj.dishes !== undefined) {
+      let dishes = order_obj.dishes;
+      let dishes_ready = dishes.filter((dish) => dish.state === "ready");
+      console.log(dishes_ready.length);
+    }
+  }
 
   // instaciamos la mutación que vamos a utilizar
   const [createOrder] = useMutation(CREATE_ORDER);
@@ -122,6 +139,12 @@ const Table = ({ color, number, free, order, addOrder, modifyTable }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    orders: state.order.orders,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addOrder: (payload) => dispatch(addOrder(payload)),
@@ -129,4 +152,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

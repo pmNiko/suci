@@ -16,9 +16,10 @@ const Tables = ({ fetchTables, tables }) => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       fetchTables(data.tables);
     }
-  }, [loading]);
+  }, [data]);
 
   return (
     <Grid container justify="center">

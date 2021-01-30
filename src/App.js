@@ -26,14 +26,15 @@ function App({ fetchOrders }) {
   useEffect(() => {
     if (data) {
       if (data.orders.length > 0) {
-        console.log(data.orders);
         // let orders = data.orders.filter((order) => order.closed === false);
         // console.log(orders[0].number, orders[0].dishes[0].state);
         fetchOrders(data.orders);
       }
     }
     console.log("Data orders: ", data);
-  }, [data]);
+    console.log("loading orders: ", loading);
+    console.log("error orders: ", error);
+  }, [loading]);
 
   return (
     <ThemeProvider theme={theme}>

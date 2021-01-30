@@ -16,10 +16,11 @@ const Tables = ({ fetchTables, tables }) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       fetchTables(data.tables);
     }
     console.log("Data tables: ", data);
+    console.log("loading tables: ", loading);
+    console.log("error tables: ", error);
   }, [data]);
 
   return (

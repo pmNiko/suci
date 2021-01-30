@@ -19,6 +19,7 @@ const Tables = ({ fetchTables, tables }) => {
       console.log(data);
       fetchTables(data.tables);
     }
+    console.log("Data tables: ", data);
   }, [data]);
 
   return (

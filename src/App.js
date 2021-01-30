@@ -32,6 +32,7 @@ function App({ fetchOrders }) {
         fetchOrders(data.orders);
       }
     }
+    console.log("Data orders: ", data);
   }, [data]);
 
   return (

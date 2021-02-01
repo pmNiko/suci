@@ -59,18 +59,34 @@ const ComandaCard = ({ orders }) => {
   const [open, setOpen] = useState(false);
   const [idOrder, setIdOrder] = useState("");
 
-  let order = orders[0];
+  let order = [];
   if (idOrder !== undefined && idOrder !== "") {
     order = orders.filter((order) => order._id === idOrder);
   }
 
-  let dishes_preparing = [];
-  if (orders !== undefined) {
-    if (order.dishes !== undefined) {
-      let dishes = order.dishes;
-      dishes_preparing = dishes.filter((dish) => dish.state === "preparing");
+  const dishesPreparingExists = (dishes) => {
+    let dishes_preparing = dishesPreparing(dishes);
+    return dishes_preparing > 0;
+  };
+
+  const dishesPreparing = (dishes) => {
+    let dishes_preparing = dishes.filter((dish) => dish.state === "preparing");
+    let dishes_preparing_count = countDishes(dishes_preparing);
+    let counter = 0;
+
+    if (dishes_preparing_count > 0) {
+      counter = dishes_preparing_count;
     }
-  }
+    return counter;
+  };
+
+  const countDishes = (dishes) => {
+    let counter = 0;
+    for (const dish of dishes) {
+      counter += 1;
+    }
+    return counter;
+  };
 
   const handleOpen = (order_id) => {
     setIdOrder(order_id);
@@ -84,51 +100,53 @@ const ComandaCard = ({ orders }) => {
   return (
     <Grid container justify="center">
       {orders !== undefined &&
-        orders.map(({ date, time, table, _id, number, closed }, index) => (
-          <Grid item key={_id}>
-            <Card
-              className={classes.root}
-              onClick={() => {
-                handleOpen(_id);
-              }}
-            >
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color="textSecondary"
-                  gutterBottom
-                >
-                  Fecha : {date} {" - "} hora {time}
-                </Typography>
-                <Typography variant="h6" component="h2">
-                  Comanda: {number}
-                </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                  Mesa: {table}
-                </Typography>
-                {dishes_preparing.length > 0 && (
-                  <Avatar
-                    style={{
-                      width: 20,
-                      height: 20,
-                      color: "red",
-                      backgroundColor: "black",
-                    }}
+        orders.map(
+          ({ date, time, table, _id, number, closed, dishes }, index) => (
+            <Grid item key={_id}>
+              <Card
+                className={classes.root}
+                onClick={() => {
+                  handleOpen(_id);
+                }}
+              >
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textSecondary"
+                    gutterBottom
                   >
-                    {dishes_preparing.length}
-                  </Avatar>
-                )}
-              </CardContent>
-              <CardActions>
-                <Grid container className={classes.rowContainer}>
-                  <Typography className={classes.semaforo}>
-                    {closed ? "Cerrada" : "Abierta"}
+                    Fecha : {date} {" - "} hora {time}
                   </Typography>
-                </Grid>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+                  <Typography variant="h6" component="h2">
+                    Comanda: {number}
+                  </Typography>
+                  <Typography className={classes.pos} color="textSecondary">
+                    Mesa: {table}
+                  </Typography>
+                  {dishesPreparingExists(dishes) && (
+                    <Avatar
+                      style={{
+                        width: 20,
+                        height: 20,
+                        color: "red",
+                        backgroundColor: "black",
+                      }}
+                    >
+                      {dishesPreparing(dishes)}
+                    </Avatar>
+                  )}
+                </CardContent>
+                <CardActions>
+                  <Grid container className={classes.rowContainer}>
+                    <Typography className={classes.semaforo}>
+                      {closed ? "Cerrada" : "Abierta"}
+                    </Typography>
+                  </Grid>
+                </CardActions>
+              </Card>
+            </Grid>
+          )
+        )}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
